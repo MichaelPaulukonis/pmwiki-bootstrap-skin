@@ -1,0 +1,39 @@
+/***********************************************************************
+** pmwiki.css
+**  Copyright 2004-2006 Patrick R. Michaud (pmichaud@pobox.com)
+**  Copyright 2006 Hagan Fox
+**  This file is part of PmWiki; you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published
+**  by the Free Software Foundation; either version 2 of the License, or
+**  (at your option) any later version.  See pmwiki.php for full details.
+***********************************************************************/
+
+/** Pmwiki Kit: only the funcional styling rules are kept, elements such
+ * as h1-6 etc. are already styled by Bootstrap, and so were removed from
+ * here.
+ */
+
+#wikicmds { 
+  float:right; white-space:nowrap; 
+  font-family:Verdana,sans-serif; font-size:80%; 
+}
+#wikicmds ul { list-style:none; margin:0px; padding:0px; }
+#wikicmds li { display:inline; margin:0px 5px; }
+#wikicmds li a { text-decoration:none; color:black; border:none; }
+#wikicmds li a.createlink { display:none; }
+#wikicmds li a:hover { text-decoration:underline; color:blue; }
+.pagegroup { margin-top:8px; margin-bottom:2px; }
+.wikiaction { margin-top:4px; margin-bottom:4px; }
+
+/* These are for the edit form. */
+#wikiedit form { margin:0px; width:100%; }
+#wikiedit textarea { width:100%; }
+.wikimessage { margin-top:4px; margin-bottom:4px; font-style:italic; }
+
+/* These affect the printed appearance of the web view (not the separate
+** print view) of pages.  The sidebar and action links aren't printed. */
+@media print {
+  body { width:auto; margin:0px; padding:0.5em; }
+  #wikihead, #wikileft, #wikicmds, .footnav { display:none; }
+  #wikifoot { padding:2px; }
+}
