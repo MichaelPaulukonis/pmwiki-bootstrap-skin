@@ -1,0 +1,30 @@
+/* additions for pmwiki integration */
+
+/* copies the settings from sidebar-nav */
+#wikitext .frame {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.3);
+    border: 0 none;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 7px 0 rgba(0, 0, 0, 0.8) inset;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.diffbox .diffmarkup del {
+    background: none repeat scroll 0 0 #666;
+    text-decoration: none;
+}
+
+.diffbox .diffmarkup ins {
+    background: none repeat scroll 0 0 #000;
+    text-decoration: none;
+}
+
+.diffbox .diffdel {
+    border-left: 5px solid #666;
+    padding-left: 5px;
+}
+
+.diffbox .diffadd {XRJ
+    border-left: 5px solid #000;
+    padding-left: 5px;
+}
+
