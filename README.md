@@ -26,7 +26,7 @@ $UseDarkstrapCss = true;
 ![default screenshot](https://raw.github.com/wiki/MichaelPaulukonis/pmwiki-bootstrap-skin/images/pmwiki.bootstrap.default.00.png)
 
 ## Darkstrap theme
-![darkstrap screenshot](https://raw.github.com/wiki/MichaelPaulukonis/pmwiki-bootstrap-skin/images/pmwiki.bootstrap.default.01.png)
+![darkstrap screenshot](https://raw.github.com/wiki/MichaelPaulukonis/pmwiki-bootstrap-skin/images/pmwiki.bootstrap.darkstrap.00.png)
 
 # Roadmap
 
