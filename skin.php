@@ -21,6 +21,15 @@ global $BootstrapSkin; $BootstrapSkin = 1;
 
 $PageLogoUrl = "$SkinDirUrl/images/ico/favicon.png";
 
+## from Hans Bracker's Triad skin (version 2008-07-10)
+## automatic loading of skin default config pages
+global $WikiLibDirs, $SkinDir;
+$where = count($WikiLibDirs);
+if ($where>1) $where--;
+array_splice($WikiLibDirs, $where, 0,
+             array(new PageStore("$SkinDir/wikilib.d/\$FullName")));
+
+
 ## you must populate $UseDarktstrapCSS in local/config.php
 ## ROADMAP: instead of one variable, will able to choose between a variety of bootstrap themes (user-configurable)
 ## cookie or something.
