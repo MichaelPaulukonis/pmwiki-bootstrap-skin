@@ -27,7 +27,7 @@ $PageLogoUrl = "$SkinDirUrl/images/ico/favicon.png";
 
 ## NOTE: the light-theme's inverse (Dark) is the dark-theme's "normal"
 ## so the below settings for navbar look the same
-if ($UseDarkstrapCss == 1) {
+if ($UseDarkstrapCss == true) {
         $HTMLHeaderFmt['option-css'] =
     "<link href='$SkinDirUrl/css/darkstrap.css' rel='stylesheet'>
     <!-- all customization should go in pmwiki.darkstrap.css -->
@@ -49,46 +49,35 @@ if ($UseDarkstrapCss == 1) {
 $WikiStyleApply['link'] = 'a';  #allows A to be labelled with class attributes
 
 
-Markup('button', 'inline',
+Markup('button', 'links',
        '/\\(:button(\\s+.*?)?:\\)/ei',
-       "SourceBlock(PSS('$1 '))");
+       "Keep(BootstrapButton(PSS('$1 ')), 'L')");
 
-function SourceBlock($args) {
-
-        $opt = ParseArgs($args);
-
-        // expect link, class, text
-        // newwin is optional; if not provided, or anything but "true" open in current window (default behavior)
-        $newwin = '';
-        if ($opt['newwin'] == 'true') {
-                $newwin = 'newwin';
-        }
-
-        $link = '[[%s|%s]]%%apply=link %s class=%s%%';
-        $linkf = sprintf($link, $opt['link'], $opt['text'], $newwin, $opt['class']);
-
-        return $linkf;
-
-}
 
 function BootstrapButton($args) {
 
         $opt = ParseArgs($args);
 
-        // expect link, class, text
+        // expect link, class
+
         // TODO: test for options
         // TODO: handle alt params
         // TODO: handle rel=nofollow per pmwiki settings
+        // what about other PmWiki shortcut-type things?
+        // like... [[PmWiki/basic editing|+]]%apply=link class="btn"%
 
-        $linkf = '<a href="%s" class=%s>%s</a>';
-        $linkf = sprintf($link, $opt['link'], $opt['class'], $opt['text']);
+        $target = $opt['link'];
+        $text = $opt['text'] ? $opt['text'] : $target; // if text not provided, default to the link
+        $class = $opt['class'];
+
+        $l = '<a href="%s" class="%s">%s</a>';
+        $linkf = sprintf($l, $target, $class, $text);
 
         return $linkf;
 
 }
 
 # the markup seems to work -- it's just that the CSS isn't finding the icon set...
-# also, supplying "class" seems needless...
 
 Markup('icon', 'inline',
        '/\\(:icon(\\s+.*?)?:\\)/ei',
