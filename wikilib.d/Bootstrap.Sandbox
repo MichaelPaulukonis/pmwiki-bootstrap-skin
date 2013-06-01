@@ -1,0 +1,41 @@
+version=pmwiki-2.2.51 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0
+author=MichaelPaulukonis
+charset=UTF-8
+csum=
+ctime=1369969057
+host=127.0.0.1
+name=Bootstrap.Sandbox
+rev=9
+targets=PmWiki.BasicEditing,Main.WikiSandbox,Category.Bootstrapmenu
+text=(:title Bootstrap Sandbox:)%0a(:div class="hero-unit":)%0a! PmWiki Bootstrap Skin%0a%0aIf the sidebar is removed, it would be nice if whatever is left is centered on the page....%0a%0aA [[http://www.pmwiki.org/|PmWiki]]%25apply=link newwin%25 skin using [[http://twitter.github.com/bootstrap/|Bootstrap]]%25apply=link newwin%25 and [[http://compass-style.org/|Compass]]%25apply=link newwin%25 stylesheets.%0a%0aWorks out of the box. Download it, update @@local/config.php@@ to use @@$Skin = 'bootstrap-fluid';@@%0a%0a(:if enabled UseDarkstrapCss :)%0aTo use the [[https://github.com/danneu/darkstrap|Darkstrap theme]] set @@$UseDarkstrapCss = true;@@%0a(:else:)%0aYou are viewing the default Bootstrap theme.%0a(:ifend:)%0a%0a(:button link="https://github.com/MichaelPaulukonis/pmwiki-bootstrap-skin" text="Github Repo" class="btn btn-primary":)  @@git clone https://github.com/MichaelPaulukonis/pmwiki-bootstrap-skin@@%0a%0a(:divend:)%0a%0a(:div class="row-fluid":)%0a(:div2 class="span4":)%0a(:markup:)%0a(:button link="https://dresssed.s3.amazonaws.com/bootstrap_cheatsheet.pdf" text="Bootstrap cheatsheet" class="btn btn-danger":)%0a(:markupend:)%0a(:div2end:)%0a(:div2 class="span4":)%0a!! Editing%0a%0aThe [[PmWiki/basic editing]] page describes how to create pages%0ain PmWiki.  You can practice editing in the [[Main/wiki sandbox]].%0a%0a[[PmWiki/basic editing|+]]%25apply=link class="btn btn-success"%25%0a(:div2end:)%0a%0a(:div2 class="span4":)%0a!! More%0aMore information about PmWiki is available from%0a%0a(:button link="http://www.pmwiki.org" class="btn btn-inverse":)%0a(:div2end:)%0a(:divend:)%0a%0a%0a(:markup:)%0a(:noheader:)%0a(:nofooter:)%0a(:notitle:)%0a(:noleft:)%0a(:noright:)%0a(:noaction:)%0a(:markupend:)%0a%0a>>bootstraptags%3c%3c[[!bootstrapmenu]]>>%3c%3c
+time=1370123493
+title=Bootstrap Sandbox
+author:1370123493=MichaelPaulukonis
+diff:1370123493:1370122993:=44d43%0a%3c %0a53d51%0a%3c %0a
+host:1370123493=127.0.0.1
+author:1370122993=MichaelPaulukonis
+csum:1370122993=Most non-core page-sections turned off as a test
+diff:1370122993:1370122829:=45,46c45%0a%3c (:noheader:)%0a%3c (:nofooter:)%0a---%0a> (:noheader:) (does not seem to be implemented yet. ROADMAP!%0a
+host:1370122993=127.0.0.1
+author:1370122829=MichaelPaulukonis
+diff:1370122829:1370119566:=44a45%0a> (:noleft:)%0a46,49d46%0a%3c (:notitle:)%0a%3c (:noleft:)%0a%3c (:noright:)%0a%3c (:noaction:)%0a
+host:1370122829=127.0.0.1
+author:1370119566=MichaelPaulukonis
+diff:1370119566:1369969266:=1d0%0a%3c (:title Bootstrap Sandbox:)%0a47,48c46%0a%3c (:markupend:)%0a%3c >>bootstraptags%3c%3c[[!bootstrapmenu]]>>%3c%3c%0a\ No newline at end of file%0a---%0a> (:markupend:)%0a\ No newline at end of file%0a
+host:1370119566=127.0.0.1
+author:1369969266=MichaelPaulukonis
+diff:1369969266:1369969180:=3,4d2%0a%3c %0a%3c If the sidebar is removed, it would be nice if whatever is left is centered on the page....%0a
+host:1369969266=127.0.0.1
+author:1369969180=MichaelPaulukonis
+diff:1369969180:1369969119:=43d42%0a%3c (:noheader:) (does not seem to be implemented yet. ROADMAP!%0a
+host:1369969180=127.0.0.1
+author:1369969119=MichaelPaulukonis
+diff:1369969119:1369969083:=1,40d0%0a%3c (:div class="hero-unit":)%0a%3c ! PmWiki Bootstrap Skin%0a%3c %0a%3c A [[http://www.pmwiki.org/|PmWiki]]%25apply=link newwin%25 skin using [[http://twitter.github.com/bootstrap/|Bootstrap]]%25apply=link newwin%25 and [[http://compass-style.org/|Compass]]%25apply=link newwin%25 stylesheets.%0a%3c %0a%3c Works out of the box. Download it, update @@local/config.php@@ to use @@$Skin = 'bootstrap-fluid';@@%0a%3c %0a%3c (:if enabled UseDarkstrapCss :)%0a%3c To use the [[https://github.com/danneu/darkstrap|Darkstrap theme]] set @@$UseDarkstrapCss = true;@@%0a%3c (:else:)%0a%3c You are viewing the default Bootstrap theme.%0a%3c (:ifend:)%0a%3c %0a%3c (:button link="https://github.com/MichaelPaulukonis/pmwiki-bootstrap-skin" text="Github Repo" class="btn btn-primary":)  @@git clone https://github.com/MichaelPaulukonis/pmwiki-bootstrap-skin@@%0a%3c %0a%3c (:divend:)%0a%3c %0a%3c (:div class="row-fluid":)%0a%3c (:div2 class="span4":)%0a%3c (:markup:)%0a%3c (:button link="https://dresssed.s3.amazonaws.com/bootstrap_cheatsheet.pdf" text="Bootstrap cheatsheet" class="btn btn-danger":)%0a%3c (:markupend:)%0a%3c (:div2end:)%0a%3c (:div2 class="span4":)%0a%3c !! Editing%0a%3c %0a%3c The [[PmWiki/basic editing]] page describes how to create pages%0a%3c in PmWiki.  You can practice editing in the [[Main/wiki sandbox]].%0a%3c %0a%3c [[PmWiki/basic editing|+]]%25apply=link class="btn btn-success"%25%0a%3c (:div2end:)%0a%3c %0a%3c (:div2 class="span4":)%0a%3c !! More%0a%3c More information about PmWiki is available from%0a%3c %0a%3c (:button link="http://www.pmwiki.org" class="btn btn-inverse":)%0a%3c (:div2end:)%0a%3c (:divend:)%0a%3c %0a
+host:1369969119=127.0.0.1
+author:1369969083=MichaelPaulukonis
+diff:1369969083:1369969057:=1,3c1%0a%3c (:markup:)%0a%3c (:noleft:)%0a%3c (:markupend:)%0a\ No newline at end of file%0a---%0a> (:noleft:)%0a\ No newline at end of file%0a
+host:1369969083=127.0.0.1
+author:1369969057=MichaelPaulukonis
+diff:1369969057:1369969057:=1d0%0a%3c (:noleft:)%0a\ No newline at end of file%0a
+host:1369969057=127.0.0.1

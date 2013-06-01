@@ -1,0 +1,18 @@
+version=pmwiki-2.2.51 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0
+author=MichaelPaulukonis
+charset=UTF-8
+csum=
+ctime=1369968872
+host=127.0.0.1
+name=Bootstrap.LocalTemplates
+rev=2
+targets=PmWiki.Pagelists,PmWiki.WikiStyles,Bootstrap.FullName
+text=!! pagelist formats%0aSee [[PmWiki/Pagelists]] and [[PmWiki/WikiStyles]] for more information%0a%0a!! Navbar format%0a[[#titlespaced]]%0a* [[{=$FullName}|{=$Titlespaced}]]%25list class="nav"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a[[#titlespacedend]]%0a%0a(:markup:)%0a(:pagelist group={$Group} fmt=#titlespaced count=5:)%0a(:markupend:)%0a%0a!! one-line%0a(needs some editing)%0a[[#oneline]](:if ! equal {%3c$Group} {=$Group}:)%0a(:if true:) | [[{=$FullName}|+]] \%0a[[#onelineend]]%0a%0a(:markup:)%0a(:pagelist group={$Group} fmt=#oneline count=5:)%0a(:markupend:)
+time=1369968905
+author:1369968905=MichaelPaulukonis
+diff:1369968905:1369968872:=
+host:1369968905=127.0.0.1
+author:1369968872=MichaelPaulukonis
+diff:1369968872:1369968872:=1,21d0%0a%3c !! pagelist formats%0a%3c See [[PmWiki/Pagelists]] and [[PmWiki/WikiStyles]] for more information%0a%3c %0a%3c !! Navbar format%0a%3c [[#titlespaced]]%0a%3c * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a%3c [[#titlespacedend]]%0a%3c %0a%3c (:markup:)%0a%3c (:pagelist group={$Group} fmt=#titlespaced count=5:)%0a%3c (:markupend:)%0a%3c %0a%3c !! one-line%0a%3c (needs some editing)%0a%3c [[#oneline]](:if ! equal {%3c$Group} {=$Group}:)%0a%3c (:if true:) | [[{=$FullName}|+]] \%0a%3c [[#onelineend]]%0a%3c %0a%3c (:markup:)%0a%3c (:pagelist group={$Group} fmt=#oneline count=5:)%0a%3c (:markupend:)%0a\ No newline at end of file%0a
+host:1369968872=127.0.0.1
