@@ -12,11 +12,11 @@ Copy to /path/to/pwmiki/pub/skins/bootstrap-fluid
 
 Add the following to config.php:
 
-$Skin = 'bootstrap-fluid';
+    $Skin = 'bootstrap-fluid';
 
 To use the included darkstrap theme, add the following line:
 
-$UseDarkstrapCss = true;
+    $UseDarkstrapCss = true;
 
 See the included pages `Bootstrap.Boostrap`, `Bootstrap.Markup` and `Bootstrap.Sandbox` pages for markup examples. 
 
