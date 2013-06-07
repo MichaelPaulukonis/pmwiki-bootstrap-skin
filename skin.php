@@ -9,7 +9,9 @@
 
 
 
-global $RecipeInfo, $SkinName, $SkinRecipeName, $WikiStyleApply, $PageLogoUrl, $HTMLHeaderFmt, $PageHeaderFmt, $PageNavStyle, $UseDarkstrapCss;
+global $RecipeInfo, $SkinName, $SkinRecipeName, $WikiStyleApply, $PageLogoUrl,
+        $HTMLHeaderFmt, $PageHeaderFmt, $PageNavStyle, $UseDarkstrapCss, $UseFlatUI,
+        $PageEditForm;
 # Some Skin-specific values
 $RecipeInfo['BootstrapSkin']['Version'] = '2013-05-20';
 $SkinName = 'bootstrap-fluid';
@@ -18,6 +20,7 @@ $SkinRecipeName = "BootstrapSkin";
 # for use in conditional markup  (:if enabled TriadSkin:)
 global $BootstrapSkin; $BootstrapSkin = 1;
 
+SDV($PageEditForm, "Bootstrap.EditForm");
 
 $PageLogoUrl = "$SkinDirUrl/images/ico/favicon.png";
 
@@ -27,8 +30,50 @@ global $WikiLibDirs, $SkinDir;
 $where = count($WikiLibDirs);
 if ($where>1) $where--;
 array_splice($WikiLibDirs, $where, 0,
-             array(new PageStore("$SkinDir/wikilib.d/\$FullName")));
+                     array(new PageStore("$SkinDir/wikilib.d/\$FullName")));
 
+# attempt to set configs via actions....
+
+global $Now, $CookiePrefix, $BootstrapCssCookie, $BootstrapCoreCookie;
+
+# set cookie expire time (default 1 year)
+SDV($BootstrapCookieExpires,$Now+60*60*24*365);
+
+$prefix = $CookiePrefix.$SkinName.'_';
+
+SDV($SkinCookie, $prefix.'setcss');
+
+# bootstrap cookie routine
+# setcss changes the skin "permanently" (until cookie expires)
+# css temporarily changes the css, but will revert to the cookie-settings next time
+# setcore/core permanently/temporarily changes the core Bootstrapp
+SDV($BootstrapCookie, $prefix.'setcss');
+SDV($BootstrapCoreCookie, $prefix.'setcore');
+
+if (isset($_COOKIE[$BootstrapCookie])) {
+        $sv = $_COOKIE[$BootstrapCookie];
+}
+if (isset($_GET['setcss'])) {
+        $sv = $_GET['setcss'];
+        setcookie($BootstrapCookie, $sv, $BootstrapCookieExpires, '/');
+}
+if (isset($_GET['css'])) {
+        $sv = $_GET['css'];
+}
+
+if (isset($_COOKIE[$BootstrapCoreCookie])) {
+        $core = $_COOKIE[$BootstrapCoreCookie];
+}
+if (isset($_GET['setcore'])) {
+        $core = $_GET['setcore'];
+        setcookie($BootstrapCoreCookie, $core, $BootstrapCookieExpires, '/');
+}
+if (isset($_GET['core'])) {
+        $core = $_GET['core'];
+}
+### end cookies
+
+# TODO: still need to honor hard-coded settings from config-file
 
 ## you must populate $UseDarktstrapCSS in local/config.php
 ## ROADMAP: instead of one variable, will able to choose between a variety of bootstrap themes (user-configurable)
@@ -36,22 +81,55 @@ array_splice($WikiLibDirs, $where, 0,
 
 ## NOTE: the light-theme's inverse (Dark) is the dark-theme's "normal"
 ## so the below settings for navbar look the same
-if ($UseDarkstrapCss == true) {
+
+if ($core == 'compass') {
+        $HTMLHeaderFmt['thing-css'] =
+        "<link href='$SkinDirUrl/css/screen.css' rel='stylesheet'>";
+} else {
+        $HTMLHeaderFmt['thing-css'] =
+        "<link href='$SkinDirUrl/css/bootstrap.css' rel='stylesheet'>
+         <link href='$SkinDirUrl/css/bootstrap-responsive.css' rel='stylesheet'>";
+}
+
+if ($sv == 'darkstrap') {
         $HTMLHeaderFmt['option-css'] =
-    "<link href='$SkinDirUrl/css/darkstrap.css' rel='stylesheet'>
-    <!-- all customization should go in pmwiki.darkstrap.css -->
-    <link href='$SkinDirUrl/css/pmwiki.darkstrap.css' rel='stylesheet'>";
+                "<link href='$SkinDirUrl/css/darkstrap.css' rel='stylesheet'>
+                 <!-- all customization should go in pmwiki.darkstrap.css -->
+                 <link href='$SkinDirUrl/css/pmwiki.darkstrap.css' rel='stylesheet'>";
 
         $PageNavStyle =
                 "<div id='wikihead' class='navbar navbar-fixed-top'> ";
 
+} else if ($sv == 'flatui') {
+        $HTMLHeaderFmt['option-css'] =
+                "<link href='$SkinDirUrl/css/flat-ui.css' rel='stylesheet'>";
+
+        $PageNavStyle =
+                "<div id='wikihead' class='navbar navbar-inverse navbar-fixed-top'> ";
+
+} else if ($sv =='bootstrap') {
+
+        $HTMLHeaderFmt['option-css'] = "";
+
+        $PageNavStyle =
+                "<div id='wikihead' class='navbar navbar-inverse navbar-fixed-top'>";
 
 } else {
 
-        $HTMLHeaderFmt['option-css'] = "";
+        ## TODO: check for existence of file $sv.cs and pmwiki.$sv.css
+        ## use if the first one exists
+        ## otherwise use the default bootstrap
+
+        $HTMLHeaderFmt['option-css'] =
+                "<link href='$SkinDirUrl/css/$sv.css' rel='stylesheet'>";
+
         $PageNavStyle =
-                "<div id='wikihead' class='navbar navbar-inverse navbar-fixed-top'>";
+                "<div id='wikihead' class='navbar navbar-inverse navbar-fixed-top'> ";
+
 }
+
+$HTMLHeaderFmt['end-css'] =
+        "<link href='$SkinDirUrl/css/pmwiki.css' rel='stylesheet' />";
 
 
 ## required for apply-actions
@@ -61,7 +139,6 @@ $WikiStyleApply['link'] = 'a';  #allows A to be labelled with class attributes
 Markup('button', 'links',
        '/\\(:button(\\s+.*?)?:\\)/ei',
        "Keep(BootstrapButton(PSS('$1 ')), 'L')");
-
 
 function BootstrapButton($args) {
 
@@ -100,30 +177,3 @@ function BootstrapIcon($args) {
 }
 
 
-## added, not working. commenting out for the time being Saturday, May 25, 2013
-
-# attempt to set configs via actions....
-
-
-/* global $Now, $CookiePrefix, $DarkstrapCookie; */
-
-/* # set cookie expire time (default 1 year) */
-/* SDV($DarkstrapCookieExpires,$Now+60*60*24*365); */
-
-/* $prefix = $CookiePrefix.$SkinName.'_'; */
-
-/* SDV($SkinCookie, $prefix.'setskin'); */
-
-/* # darkstrap cookie routine */
-/* if($EnableDarkstrapOptions==1) { */
-/*     SDV($DarkstrapCookie, $prefix.'setcss'); */
-/*     if (isset($_COOKIE[$DarkstrapCookie])) $sf = $_COOKIE[$DarkstrapCookie]; */
-/*     if (isset($_GET['setcss'])) { */
-/*       $sf = $_GET['setcss']; */
-/*       setcookie($DarkstrapCookie,$sf,$DarkstrapCookieExpires,'/');} */
-/*     if (isset($_GET['css'])) $sf = $_GET['css']; */
-/*     if (@$PageDarkstrapList[$sf]) $DarkstrapCss = $PageDarkstrapList[$sf]; */
-/*     else $sf = $DefaultDarkstrap; */
-/* } */
-
-#####end cookies

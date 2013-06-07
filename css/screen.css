@@ -1860,7 +1860,7 @@ table .span24 {
   *margin-right: .3em;
   line-height: 14px;
   vertical-align: text-top;
-  background-image: url("url('/pub/images/bootstrap/glyphicons-halflings.png?1357397340')");
+  background-image: url('../images/glyphicons-halflings.png?1357397340');
   background-position: 14px 14px;
   background-repeat: no-repeat;
 }
@@ -1872,7 +1872,7 @@ table .span24 {
 
 /* line 30, ../../../../.rvm/gems/ruby-1.9.3-p194@pmwiki-kit/gems/compass_twitter_bootstrap-2.0.3/stylesheets/compass_twitter_bootstrap/_sprites.scss */
 .icon-white {
-  background-image: url("url('/pub/images/bootstrap/glyphicons-halflings-white.png?1357397340')");
+  background-image: url('../images/glyphicons-halflings-white.png?1357397340');
 }
 
 /* line 34, ../../../../.rvm/gems/ruby-1.9.3-p194@pmwiki-kit/gems/compass_twitter_bootstrap-2.0.3/stylesheets/compass_twitter_bootstrap/_sprites.scss */
