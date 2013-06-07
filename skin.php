@@ -10,8 +10,8 @@
 
 
 global $RecipeInfo, $SkinName, $SkinRecipeName, $WikiStyleApply, $PageLogoUrl,
-        $HTMLHeaderFmt, $PageHeaderFmt, $PageNavStyle, $UseDarkstrapCss, $UseFlatUI,
-        $PageEditForm;
+        $HTMLHeaderFmt, $PageHeaderFmt, $PageNavStyle, $UseDarkstrapTheme, $UseFlatUI,
+        $PageEditForm, $PageTextStartFmt;
 # Some Skin-specific values
 $RecipeInfo['BootstrapSkin']['Version'] = '2013-05-20';
 $SkinName = 'bootstrap-fluid';
@@ -24,6 +24,7 @@ SDV($PageEditForm, "Bootstrap.EditForm");
 
 $PageLogoUrl = "$SkinDirUrl/images/ico/favicon.png";
 
+
 ## from Hans Bracker's Triad skin (version 2008-07-10)
 ## automatic loading of skin default config pages
 global $WikiLibDirs, $SkinDir;
@@ -34,32 +35,36 @@ array_splice($WikiLibDirs, $where, 0,
 
 # attempt to set configs via actions....
 
-global $Now, $CookiePrefix, $BootstrapCssCookie, $BootstrapCoreCookie;
+global $Now, $CookiePrefix, $BootstrapThemeCookie, $BootstrapCoreCookie, $BootstrapTheme, $BootstrapCore;
 
 # set cookie expire time (default 1 year)
 SDV($BootstrapCookieExpires,$Now+60*60*24*365);
 
 $prefix = $CookiePrefix.$SkinName.'_';
 
-SDV($SkinCookie, $prefix.'setcss');
+SDV($SkinCookie, $prefix.'settheme');
 
 # bootstrap cookie routine
-# setcss changes the skin "permanently" (until cookie expires)
-# css temporarily changes the css, but will revert to the cookie-settings next time
+# settheme changes the skin "permanently" (until cookie expires)
+# theme temporarily changes the theme, but will revert to the cookie-settings next time
 # setcore/core permanently/temporarily changes the core Bootstrapp
-SDV($BootstrapCookie, $prefix.'setcss');
+SDV($BootstrapCookie, $prefix.'settheme');
 SDV($BootstrapCoreCookie, $prefix.'setcore');
 
 if (isset($_COOKIE[$BootstrapCookie])) {
-        $sv = $_COOKIE[$BootstrapCookie];
+        $theme = $_COOKIE[$BootstrapCookie];
 }
-if (isset($_GET['setcss'])) {
-        $sv = $_GET['setcss'];
-        setcookie($BootstrapCookie, $sv, $BootstrapCookieExpires, '/');
+if (isset($_GET['settheme'])) {
+        $theme = $_GET['settheme'];
+        setcookie($BootstrapCookie, $theme, $BootstrapCookieExpires, '/');
 }
-if (isset($_GET['css'])) {
-        $sv = $_GET['css'];
+if (isset($_GET['theme'])) {
+        $theme = $_GET['theme'];
 }
+if (! isset($theme)) {
+        $theme = $BootstrapTheme;
+}
+
 
 if (isset($_COOKIE[$BootstrapCoreCookie])) {
         $core = $_COOKIE[$BootstrapCoreCookie];
@@ -71,11 +76,14 @@ if (isset($_GET['setcore'])) {
 if (isset($_GET['core'])) {
         $core = $_GET['core'];
 }
+if (! isset($core)) {
+        $core = $BootstrapCore;
+}
 ### end cookies
 
 # TODO: still need to honor hard-coded settings from config-file
 
-## you must populate $UseDarktstrapCSS in local/config.php
+## you must populate $UseDarktstrapTHEME in local/config.php
 ## ROADMAP: instead of one variable, will able to choose between a variety of bootstrap themes (user-configurable)
 ## cookie or something.
 
@@ -83,15 +91,15 @@ if (isset($_GET['core'])) {
 ## so the below settings for navbar look the same
 
 if ($core == 'compass') {
-        $HTMLHeaderFmt['thing-css'] =
+        $HTMLHeaderFmt['core-css'] =
         "<link href='$SkinDirUrl/css/screen.css' rel='stylesheet'>";
 } else {
-        $HTMLHeaderFmt['thing-css'] =
+        $HTMLHeaderFmt['core-css'] =
         "<link href='$SkinDirUrl/css/bootstrap.css' rel='stylesheet'>
          <link href='$SkinDirUrl/css/bootstrap-responsive.css' rel='stylesheet'>";
 }
 
-if ($sv == 'darkstrap') {
+if ($theme == 'darkstrap') {
         $HTMLHeaderFmt['option-css'] =
                 "<link href='$SkinDirUrl/css/darkstrap.css' rel='stylesheet'>
                  <!-- all customization should go in pmwiki.darkstrap.css -->
@@ -100,14 +108,14 @@ if ($sv == 'darkstrap') {
         $PageNavStyle =
                 "<div id='wikihead' class='navbar navbar-fixed-top'> ";
 
-} else if ($sv == 'flatui') {
+} else if ($theme == 'flatui') {
         $HTMLHeaderFmt['option-css'] =
                 "<link href='$SkinDirUrl/css/flat-ui.css' rel='stylesheet'>";
 
         $PageNavStyle =
                 "<div id='wikihead' class='navbar navbar-inverse navbar-fixed-top'> ";
 
-} else if ($sv =='bootstrap') {
+} else if ($theme =='bootstrap') {
 
         $HTMLHeaderFmt['option-css'] = "";
 
@@ -116,12 +124,12 @@ if ($sv == 'darkstrap') {
 
 } else {
 
-        ## TODO: check for existence of file $sv.cs and pmwiki.$sv.css
+        ## TODO: check for existence of file $theme.cs and pmwiki.$theme.css
         ## use if the first one exists
         ## otherwise use the default bootstrap
 
         $HTMLHeaderFmt['option-css'] =
-                "<link href='$SkinDirUrl/css/$sv.css' rel='stylesheet'>";
+                "<link href='$SkinDirUrl/css/$theme.css' rel='stylesheet'>";
 
         $PageNavStyle =
                 "<div id='wikihead' class='navbar navbar-inverse navbar-fixed-top'> ";
