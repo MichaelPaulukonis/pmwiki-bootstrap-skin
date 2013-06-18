@@ -14,10 +14,16 @@ Add the following to config.php:
 
     $Skin = 'bootstrap-fluid';
 
-To use the included darkstrap theme, add the following line:
+# Theme selection and configuration
+Use the query-params `theme` and `settheme` to temporarily or permanently change bootstrap themes for yourself. Included themes are `darkstrap`, `flatui` and the default `bootstrap`. If you upload a custom theme, set it via this method.
 
-    $UseDarkstrapCss = true;
+Use the query-params `core` and `setcore` to temporarily or permanently change bootstrap core css for yourself. Setting core to `compass` will use the Compass stylesheet originally found in [Pmwiki Kit](https://github.com/gambhiro/pmwiki-kit-bootstrap-compass). All other values will use the default bootstrap css.
 
+Use the query-params `navbar` and `setnavbar` to temporarily or permanently change the navbar for yourself. Setting the value to `inverse` will apply the `navbar-inverse` class to the navbar. All other values will not. Default bootstrap and Darkstrap themes use inverse by default.
+
+All of the above values can be set for all users in `config.php` with the following values: `$BootstrapTheme`, `$BootstrapCore`, `$BootstrapNav`.
+
+# Markup
 See the included pages `Bootstrap.Boostrap`, `Bootstrap.Markup` and `Bootstrap.Sandbox` pages for markup examples. 
 
 # Screenshots
