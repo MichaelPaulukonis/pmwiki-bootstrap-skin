@@ -1,0 +1,24 @@
+version=pmwiki-2.2.51 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:21.0) Gecko/20100101 Firefox/21.0
+author=MichaelPaulukonis
+charset=UTF-8
+csum=
+ctime=1370402699
+host=127.0.0.1
+name=Bootstrap.StyleOptions
+rev=4
+targets=Bootstrap.StyleOptions,Category.Bootstrapmenu
+text=! Permanently* Change the Bootstrap theme%0a[=*=] for one year%0a* [[{$Name}?settheme=darkstrap | use 'Darkstrap' style]]%0a* [[{$Name}?settheme=flatui | use 'Flat-UI' style]]%0a* [[{$Name}?settheme=default| use default 'Bootstrap' style]]%0a%0a! Temporarily change the Bootstrap theme%0a* [[{$Name}?theme=darkstrap | view 'Darkstrap' style]]%0a* [[{$Name}?theme=flatui | view 'Flat-UI' style]]%0a* [[{$Name}?theme=default| view default 'Bootstrap' style]]%0a%0a! Permanently* Change the core Bootstrap css framework%0a[=*=] for one year%0a* [[{$Name}?setcore=compass | use PmWikiKit-Compass style]]%0a* [[{$Name}?setcore=default| use default 'Bootstrap' style]]%0a%0a! Temporarily change the core Bootstrap css framework%0a* [[{$Name}?core=compass| view PmWikiKit-Compass style]]%0a* [[{$Name}?core=default| view default 'Bootstrap' style]]%0a%0a%0a>>bootstraptags%3c%3c[[!bootstrapmenu]]>>%3c%3c%0a
+time=1370641258
+author:1370641258=MichaelPaulukonis
+diff:1370641258:1370572799:=3,6c3,6%0a%3c * [[{$Name}?settheme=darkstrap | use 'Darkstrap' style]]%0a%3c * [[{$Name}?settheme=flatui | use 'Flat-UI' style]]%0a%3c * [[{$Name}?settheme=default| use default 'Bootstrap' style]]%0a%3c %0a---%0a> * [[{$Name}?setcss=darkstrap | use 'Darkstrap' style]]%0a> * [[{$Name}?setcss=flatui | use 'Flat-UI' style]]%0a> * [[{$Name}?setcss=default| use default 'Bootstrap' style]]%0a> %0a8,10c8,10%0a%3c * [[{$Name}?theme=darkstrap | view 'Darkstrap' style]]%0a%3c * [[{$Name}?theme=flatui | view 'Flat-UI' style]]%0a%3c * [[{$Name}?theme=default| view default 'Bootstrap' style]]%0a---%0a> * [[{$Name}?css=darkstrap | view 'Darkstrap' style]]%0a> * [[{$Name}?css=flatui | view 'Flat-UI' style]]%0a> * [[{$Name}?css=default| view default 'Bootstrap' style]]%0a
+host:1370641258=127.0.0.1
+author:1370572799=MichaelPaulukonis
+diff:1370572799:1370403395:=11,19d10%0a%3c %0a%3c ! Permanently* Change the core Bootstrap css framework%0a%3c [=*=] for one year%0a%3c * [[{$Name}?setcore=compass | use PmWikiKit-Compass style]]%0a%3c * [[{$Name}?setcore=default| use default 'Bootstrap' style]]%0a%3c %0a%3c ! Temporarily change the core Bootstrap css framework%0a%3c * [[{$Name}?core=compass| view PmWikiKit-Compass style]]%0a%3c * [[{$Name}?core=default| view default 'Bootstrap' style]]%0a
+host:1370572799=127.0.0.1
+author:1370403395=MichaelPaulukonis
+diff:1370403395:1370402699:=11,13d10%0a%3c %0a%3c %0a%3c >>bootstraptags%3c%3c[[!bootstrapmenu]]>>%3c%3c%0a
+host:1370403395=127.0.0.1
+author:1370402699=MichaelPaulukonis
+diff:1370402699:1370402699:=1,10d0%0a%3c ! Permanently* Change the Bootstrap theme%0a%3c [=*=] for one year%0a%3c * [[{$Name}?setcss=darkstrap | use 'Darkstrap' style]]%0a%3c * [[{$Name}?setcss=flatui | use 'Flat-UI' style]]%0a%3c * [[{$Name}?setcss=default| use default 'Bootstrap' style]]%0a%3c %0a%3c ! Temporarily change the Bootstrap theme%0a%3c * [[{$Name}?css=darkstrap | view 'Darkstrap' style]]%0a%3c * [[{$Name}?css=flatui | view 'Flat-UI' style]]%0a%3c * [[{$Name}?css=default| view default 'Bootstrap' style]]%0a
+host:1370402699=127.0.0.1
