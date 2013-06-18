@@ -1,15 +1,19 @@
 version=pmwiki-2.2.51 ordered=1 urlencoded=1
-agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:21.0) Gecko/20100101 Firefox/21.0
 author=MichaelPaulukonis
 charset=UTF-8
-csum=bootstrap tags added
+csum=removing blank line to remove vspace that's affecting the third column
 ctime=1369881149
 host=127.0.0.1
 name=Bootstrap.Bootstrap
-rev=3
+rev=4
 targets=PmWiki.BasicEditing,Main.WikiSandbox,Category.Bootstrapmenu
-text=(:div class="hero-unit":)%0a! PmWiki Bootstrap Skin%0a%0aA [[http://www.pmwiki.org/|PmWiki]]%25apply=link newwin%25 skin using [[http://twitter.github.com/bootstrap/|Bootstrap]]%25apply=link newwin%25 and [[http://compass-style.org/|Compass]]%25apply=link newwin%25 stylesheets.%0a%0aWorks out of the box. Download it, update @@local/config.php@@ to use @@$Skin = 'bootstrap-fluid';@@%0a%0a(:if enabled UseDarkstrapCss :)%0aTo use the [[https://github.com/danneu/darkstrap|Darkstrap theme]] set @@$UseDarkstrapCss = true;@@%0a(:else:)%0aYou are viewing the default Bootstrap theme.%0a(:ifend:)%0a%0a(:button link="https://github.com/MichaelPaulukonis/pmwiki-bootstrap-skin" text="Github Repo" class="btn btn-primary":)  @@git clone https://github.com/MichaelPaulukonis/pmwiki-bootstrap-skin@@%0a%0a(:divend:)%0a%0a(:div class="row-fluid":)%0a(:div2 class="span4":)%0a(:markup:)%0a(:button link="https://dresssed.s3.amazonaws.com/bootstrap_cheatsheet.pdf" text="Bootstrap cheatsheet" class="btn btn-danger":)%0a(:markupend:)%0a(:div2end:)%0a(:div2 class="span4":)%0a!! Editing%0a%0aThe [[PmWiki/basic editing]] page describes how to create pages%0ain PmWiki.  You can practice editing in the [[Main/wiki sandbox]].%0a%0a[[PmWiki/basic editing|+]]%25apply=link class="btn btn-success"%25%0a(:div2end:)%0a%0a(:div2 class="span4":)%0a!! More%0aMore information about PmWiki is available from%0a%0a(:button link="http://www.pmwiki.org" class="btn btn-inverse":)%0a(:div2end:)%0a(:divend:)%0a>>bootstraptags%3c%3c[[!bootstrapmenu]]%0a>>%3c%3c
-time=1370118799
+text=(:div class="hero-unit":)%0a! PmWiki Bootstrap Skin%0a%0aA [[http://www.pmwiki.org/|PmWiki]]%25apply=link newwin%25 skin using [[http://twitter.github.com/bootstrap/|Bootstrap]]%25apply=link newwin%25 and [[http://compass-style.org/|Compass]]%25apply=link newwin%25 stylesheets.%0a%0aWorks out of the box. Download it, update @@local/config.php@@ to use @@$Skin = 'bootstrap-fluid';@@%0a%0a(:if enabled UseDarkstrapCss :)%0aTo use the [[https://github.com/danneu/darkstrap|Darkstrap theme]] set @@$UseDarkstrapCss = true;@@%0a(:else:)%0aYou are viewing the default Bootstrap theme.%0a(:ifend:)%0a%0a(:button link="https://github.com/MichaelPaulukonis/pmwiki-bootstrap-skin" text="Github Repo" class="btn btn-primary":)  @@git clone https://github.com/MichaelPaulukonis/pmwiki-bootstrap-skin@@%0a%0a(:divend:)%0a%0a(:div class="row-fluid":)%0a(:div2 class="span4":)%0a(:markup:)%0a(:button link="https://dresssed.s3.amazonaws.com/bootstrap_cheatsheet.pdf" text="Bootstrap cheatsheet" class="btn btn-danger":)%0a(:markupend:)%0a(:div2end:)%0a(:div2 class="span4":)%0a!! Editing%0a%0aThe [[PmWiki/basic editing]] page describes how to create pages%0ain PmWiki.  You can practice editing in the [[Main/wiki sandbox]].%0a%0a[[PmWiki/basic editing|+]]%25apply=link class="btn btn-success"%25%0a(:div2end:)%0a(:div2 class="span4":)%0a!! More%0aMore information about PmWiki is available from%0a%0a(:button link="http://www.pmwiki.org" class="btn btn-inverse":)%0a(:div2end:)%0a(:divend:)%0a>>bootstraptags%3c%3c[[!bootstrapmenu]]%0a>>%3c%3c
+time=1370228590
+author:1370228590=MichaelPaulukonis
+csum:1370228590=removing blank line to remove vspace that's affecting the third column
+diff:1370228590:1370118799:minor=31a32%0a> %0a
+host:1370228590=127.0.0.1
 author:1370118799=MichaelPaulukonis
 csum:1370118799=bootstrap tags added
 diff:1370118799:1369882148:=39,41c39%0a%3c (:divend:)%0a%3c >>bootstraptags%3c%3c[[!bootstrapmenu]]%0a%3c >>%3c%3c%0a\ No newline at end of file%0a---%0a> (:divend:)%0a\ No newline at end of file%0a

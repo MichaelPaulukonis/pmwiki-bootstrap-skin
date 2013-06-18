@@ -31,11 +31,12 @@ global $WikiLibDirs, $SkinDir;
 $where = count($WikiLibDirs);
 if ($where>1) $where--;
 array_splice($WikiLibDirs, $where, 0,
-                     array(new PageStore("$SkinDir/wikilib.d/\$FullName")));
+             array(new PageStore("$SkinDir/wikilib.d/\$FullName")));
 
 # attempt to set configs via actions....
 
-global $Now, $CookiePrefix, $BootstrapThemeCookie, $BootstrapCoreCookie, $BootstrapTheme, $BootstrapCore;
+global $Now, $CookiePrefix, $BootstrapThemeCookie, $BootstrapCoreCookie, $BootstrapNavbarCookie,
+        $BootstrapTheme, $BootstrapCore, $BootstrapNav;
 
 # set cookie expire time (default 1 year)
 SDV($BootstrapCookieExpires,$Now+60*60*24*365);
@@ -48,15 +49,15 @@ SDV($SkinCookie, $prefix.'settheme');
 # settheme changes the skin "permanently" (until cookie expires)
 # theme temporarily changes the theme, but will revert to the cookie-settings next time
 # setcore/core permanently/temporarily changes the core Bootstrapp
-SDV($BootstrapCookie, $prefix.'settheme');
+SDV($BootstrapThemeCookie, $prefix.'settheme');
 SDV($BootstrapCoreCookie, $prefix.'setcore');
 
-if (isset($_COOKIE[$BootstrapCookie])) {
-        $theme = $_COOKIE[$BootstrapCookie];
+if (isset($_COOKIE[$BootstrapThemeCookie])) {
+        $theme = $_COOKIE[$BootstrapThemeCookie];
 }
 if (isset($_GET['settheme'])) {
         $theme = $_GET['settheme'];
-        setcookie($BootstrapCookie, $theme, $BootstrapCookieExpires, '/');
+        setcookie($BootstrapThemeCookie, $theme, $BootstrapCookieExpires, '/');
 }
 if (isset($_GET['theme'])) {
         $theme = $_GET['theme'];
@@ -79,23 +80,35 @@ if (isset($_GET['core'])) {
 if (! isset($core)) {
         $core = $BootstrapCore;
 }
+
+# presence of navbar cookie will over-ride any defaults that may be set per theme
+# ie, darkstrap and default bootstrap use inverse. because I think it looks better
+if (isset($_COOKIE[$BootstrapNavbarCookie])) {
+        $navbar = $_COOKIE[$BootstrapNavbarCookie];
+}
+if (isset($_GET['setnavbar'])) {
+        $navbar = $_GET['setnavbar'];
+        setcookie($BootstrapNavbarCookie, $navbar, $BootstrapCookieExpires, '/');
+}
+if (isset($_GET['navbar'])) {
+        $navbar = $_GET['navbar'];
+        $navbar = ($navbar == 'inverse' ? 'navbar-inverse' : '');
+}
+if (! isset($navbar)) {
+        $navbar = $BootstrapNavbar;
+        $navbar = ($navbar == 'inverse' ? 'navbar-inverse' : '');
+}
+
+
+
 ### end cookies
-
-# TODO: still need to honor hard-coded settings from config-file
-
-## you must populate $UseDarktstrapTHEME in local/config.php
-## ROADMAP: instead of one variable, will able to choose between a variety of bootstrap themes (user-configurable)
-## cookie or something.
-
-## NOTE: the light-theme's inverse (Dark) is the dark-theme's "normal"
-## so the below settings for navbar look the same
 
 if ($core == 'compass') {
         $HTMLHeaderFmt['core-css'] =
-        "<link href='$SkinDirUrl/css/screen.css' rel='stylesheet'>";
+                "<link href='$SkinDirUrl/css/screen.css' rel='stylesheet'>";
 } else {
         $HTMLHeaderFmt['core-css'] =
-        "<link href='$SkinDirUrl/css/bootstrap.css' rel='stylesheet'>
+                "<link href='$SkinDirUrl/css/bootstrap.css' rel='stylesheet'>
          <link href='$SkinDirUrl/css/bootstrap-responsive.css' rel='stylesheet'>";
 }
 
@@ -105,22 +118,19 @@ if ($theme == 'darkstrap') {
                  <!-- all customization should go in pmwiki.darkstrap.css -->
                  <link href='$SkinDirUrl/css/pmwiki.darkstrap.css' rel='stylesheet'>";
 
-        $PageNavStyle =
-                "<div id='wikihead' class='navbar navbar-fixed-top'> ";
+        if (! isset($navbar)) $navbar = '';
 
 } else if ($theme == 'flatui') {
         $HTMLHeaderFmt['option-css'] =
                 "<link href='$SkinDirUrl/css/flat-ui.css' rel='stylesheet'>";
 
-        $PageNavStyle =
-                "<div id='wikihead' class='navbar navbar-inverse navbar-fixed-top'> ";
+        if (! isset($navbar)) $navbar = 'navbar-inverse';
 
 } else if ($theme =='bootstrap') {
 
         $HTMLHeaderFmt['option-css'] = "";
 
-        $PageNavStyle =
-                "<div id='wikihead' class='navbar navbar-inverse navbar-fixed-top'>";
+        if (! isset($navbar)) $navbar = '';
 
 } else {
 
@@ -131,10 +141,13 @@ if ($theme == 'darkstrap') {
         $HTMLHeaderFmt['option-css'] =
                 "<link href='$SkinDirUrl/css/$theme.css' rel='stylesheet'>";
 
-        $PageNavStyle =
-                "<div id='wikihead' class='navbar navbar-inverse navbar-fixed-top'> ";
+        if (! isset($navbar)) $navbar = '';
 
 }
+
+
+$PageNavStyle =
+        "<div id='wikihead' class='navbar $navbar navbar-fixed-top'>";
 
 $HTMLHeaderFmt['end-css'] =
         "<link href='$SkinDirUrl/css/pmwiki.css' rel='stylesheet' />";

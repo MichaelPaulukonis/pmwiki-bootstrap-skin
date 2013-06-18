@@ -13,6 +13,27 @@
  * here.
  */
 
+body {
+    padding-top: 60px;
+}
+
+.container, .container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#overview {
+    padding-top: 60px;
+}
+
+#overview .pagegroup {
+    margin-right: 10px;
+}
+
+#overview h1 {
+    display: inline;
+}
+
 #wikicmds {
   float:right; white-space:nowrap;
   font-family:Verdana,sans-serif; font-size:80%;
