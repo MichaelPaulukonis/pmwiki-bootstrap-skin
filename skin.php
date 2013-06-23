@@ -112,15 +112,7 @@ if ($core == 'compass') {
          <link href='$SkinDirUrl/css/bootstrap-responsive.css' rel='stylesheet'>";
 }
 
-if ($theme == 'darkstrap') {
-        $HTMLHeaderFmt['option-css'] =
-                "<link href='$SkinDirUrl/css/darkstrap.css' rel='stylesheet'>
-                 <!-- all customization should go in pmwiki.darkstrap.css -->
-                 <link href='$SkinDirUrl/css/pmwiki.darkstrap.css' rel='stylesheet'>";
-
-        if (! isset($navbar)) $navbar = '';
-
-} else if ($theme == 'flatui') {
+if ($theme == 'flatui') {
         $HTMLHeaderFmt['option-css'] =
                 "<link href='$SkinDirUrl/css/flat-ui.css' rel='stylesheet'>";
 
@@ -134,12 +126,29 @@ if ($theme == 'darkstrap') {
 
 } else {
 
-        ## TODO: check for existence of file $theme.cs and pmwiki.$theme.css
+        ## check for existence of file $theme.cs and pmwiki.$theme.css
         ## use if the first one exists
         ## otherwise use the default bootstrap
 
-        $HTMLHeaderFmt['option-css'] =
+        if (file_exists("$FarmD/pub/skins/bootstrap-fluid/css/$theme.css")) {
+
+            $HTMLHeaderFmt['option-css'] =
                 "<link href='$SkinDirUrl/css/$theme.css' rel='stylesheet'>";
+
+        } else {
+
+            $HTMLHeaderFmt['option-css'] = "";
+        }
+
+        if (file_exists("$FarmD/pub/skins/bootstrap-fluid/css/pmwiki.$theme.css")) {
+
+            $HTMLHeaderFmt['option-css2'] =
+                "<link href='$SkinDirUrl/css/pmwiki.$theme.css' rel='stylesheet'>";
+
+        } else {
+
+            $HTMLHeaderFmt['option-css2'] = "";
+        }
 
         if (! isset($navbar)) $navbar = '';
 
