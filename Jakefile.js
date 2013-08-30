@@ -7,30 +7,34 @@
   
   */
 
-// TODO: should be working in project folder, and push changes back to test targer
-// oh well. will get this right one of these days....
+var open = require('open');
+var config = require('./config');
 
-// c:\dev\xampp\htdocs\projects\pmwikitest\pub\skins\bootstrap-fluid\Jakefile.js
-
-var target = {
-    wikitest: 'c:/dev/xampp/htdocs/projects/pmwikitest/pub/skins/bootstrap-fluid/',
-    freelance: 'C:/dev/xampp/htdocs/freelance/shahjahan/wikidocs/pub/skins/bootstrap-fluid/'
-    };
+desc('dump');
+task('dump', [], function() {
+    console.log(config);
+});
 
 desc('This is a simple complete-project copy.');
 task('default', [], function () {
-    push(target.wikitest);
+    push(config.target.wikitest);
     });
 
 desc('This is a simple complete-project copy.');
 task('freelance', [], function () {
-    push(target.freelance);
+    push(config.target.freelance);
     });
 
 var push = function(target) {
+    // TODO: this is more complicated
+    // we want to ignore things. or only hit certain things. :::sigh:::
     jake.cpR("./", target);
     };
 
 
 // TODO: zip
-// TODO: package.json for adm-zip etc.
+
+desc('Open remote repo in browser');
+task('openweb', [], function() {
+    open(config.remote);
+});

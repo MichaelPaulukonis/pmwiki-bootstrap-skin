@@ -1,0 +1,12 @@
+{
+  "name": "jakefile",
+  "description": "build and tools for project",
+  "author": "MichaelPaulukonis (http://michaelpaulukonis.com)",
+  "dependencies": {
+    "adm-zip": "0.4.3",
+    "open": "latest"
+   },
+  "engine" : {
+    "node" : "0.8.x"
+  }
+}
