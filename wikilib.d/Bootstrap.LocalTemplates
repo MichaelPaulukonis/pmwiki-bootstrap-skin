@@ -1,111 +1,15 @@
 version=pmwiki-2.2.51 ordered=1 urlencoded=1
-agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:21.0) Gecko/20100101 Firefox/21.0
+agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0
 author=MichaelPaulukonis
 charset=UTF-8
 csum=
 ctime=1369968872
 host=127.0.0.1
 name=Bootstrap.LocalTemplates
-rev=34
+rev=2
 targets=PmWiki.Pagelists,PmWiki.WikiStyles,Bootstrap.FullName
-text=!! pagelist formats%0aSee [[PmWiki/Pagelists]] and [[PmWiki/WikiStyles]] for more information%0a%0a!! Navbar format%0a[[#titlespaced]]%0a* [[{=$FullName}|{=$Titlespaced}]]%25list class="nav"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a[[#titlespacedend]]%0a%0a(:markup:)%0a(:pagelist group={$Group} fmt=#titlespaced count=5:)%0a(:markupend:)%0a%0a!! one-line%0a(needs some editing)%0a[[#oneline]](:if ! equal {%3c$Group} {=$Group}:)%0a(:if true:) | [[{=$FullName}|+]] \%0a[[#onelineend]]%0a%0a(:markup:)%0a(:pagelist group={$Group} fmt=#oneline count=5:)%0a(:markupend:)%0a%0a!! Dropdown format (not working)%0a[[#dropdown]]%0a(:template first {=$Group}:)%0a* {=$Group}%25item class="dropdown"%25%25list class="nav "%25%0a(:template each:)%0a** [[{=$FullName}|{=$Titlespaced}]]%25list class="nav "%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a[[#dropdown]]%0a%0a(:markup:)%0a(:pagelist link=Category.Bootstrapmenu fmt=Bootstrap.LocalTemplates#dropdown:)%0a(:markupend:)
-time=1371525943
-author:1371525943=MichaelPaulukonis
-diff:1371525943:1371525772:=21,32d20%0a%3c (:markupend:)%0a%3c %0a%3c !! Dropdown format (not working)%0a%3c [[#dropdown]]%0a%3c (:template first {=$Group}:)%0a%3c * {=$Group}%25item class="dropdown"%25%25list class="nav "%25%0a%3c (:template each:)%0a%3c ** [[{=$FullName}|{=$Titlespaced}]]%25list class="nav "%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a%3c [[#dropdown]]%0a%3c %0a%3c (:markup:)%0a%3c (:pagelist link=Category.Bootstrapmenu fmt=Bootstrap.LocalTemplates#dropdown:)%0a
-host:1371525943=127.0.0.1
-author:1371525772=MichaelPaulukonis
-diff:1371525772:1370918560:=0a1,8%0a> * thing%0a> ** sub-thing%0a> ** sub-thing%0a> * another%0a> **sub%0a> ** sub%0a> %0a> %0a6c14,17%0a%3c * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a---%0a> (:template first {=$Group}:)%0a> * {=$Group}%25item class="dropdown"%25%25list class="nav "%25%0a> (:template each:)%0a> ** [[{=$FullName}|{=$Titlespaced}]]%25list class="nav "%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a10c21%0a%3c (:pagelist group={$Group} fmt=#titlespaced count=5:)%0a---%0a> (:pagelist link=Category.Bootstrapmenu fmt=Bootstrap.LocalTemplates#titlespaced:)%0a11a23,27%0a> %0a> (:markup:)%0a> (:pagelist  fmt=#titlespaced count=15:)%0a> (:markupend:)%0a> %0a
-host:1371525772=127.0.0.1
-author:1370918560=MichaelPaulukonis
-diff:1370918560:1370918473:=1,8d0%0a%3c * thing%0a%3c ** sub-thing%0a%3c ** sub-thing%0a%3c * another%0a%3c **sub%0a%3c ** sub%0a%3c %0a%3c %0a15c7%0a%3c * {=$Group}%25item class="dropdown"%25%25list class="nav "%25%0a---%0a> * [[{=$Group}]]%25item class="dropdown"%25%25list class="nav "%25%0a17c9%0a%3c ** [[{=$FullName}|{=$Titlespaced}]]%25list class="nav "%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a---%0a> ** [[{=$FullName}|{=$Titlespaced}]]%25list class="dropdown-menu"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a
-host:1370918560=127.0.0.1
-author:1370918473=MichaelPaulukonis
-diff:1370918473:1370918445:=7c7%0a%3c * [[{=$Group}]]%25item class="dropdown"%25%25list class="nav "%25%0a---%0a> * [[#menu|{=$Group}]]%25item class="dropdown"%25%25list class="nav "%25%0a
-host:1370918473=127.0.0.1
-author:1370918445=MichaelPaulukonis
-diff:1370918445:1370918385:=7c7%0a%3c * [[#menu|{=$Group}]]%25item class="dropdown"%25%25list class="nav "%25%0a---%0a> * [[#menu|{=$Group}]]%25apply=link class="dropdown-toggle"%25%25item class="dropdown"%25%25list class="nav "%25%0a
-host:1370918445=127.0.0.1
-author:1370918385=MichaelPaulukonis
-diff:1370918385:1370918242:=7c7%0a%3c * [[#menu|{=$Group}]]%25apply=link class="dropdown-toggle"%25%25item class="dropdown"%25%25list class="nav "%25%0a---%0a> * [[#menu|{=$Group}]]%25link class="dropdown-toggle" data-toggle="dropdown"%25%25item class="dropdown"%25%25list class="nav "%25%0a
-host:1370918385=127.0.0.1
-author:1370918242=MichaelPaulukonis
-diff:1370918242:1370918057:=7c7%0a%3c * [[#menu|{=$Group}]]%25link class="dropdown-toggle" data-toggle="dropdown"%25%25item class="dropdown"%25%25list class="nav "%25%0a---%0a> * [[#|{=$Group}]]%25link class="dropdown-toggle" data-toggle="dropdown"%25%25item class="dropdown"%25%25list class="nav "%25%0a
-host:1370918242=127.0.0.1
-author:1370918057=MichaelPaulukonis
-diff:1370918057:1370918044:=7c7%0a%3c * [[#|{=$Group}]]%25link class="dropdown-toggle" data-toggle="dropdown"%25%25item class="dropdown"%25%25list class="nav "%25%0a---%0a> * [[{=$Group}]]%25link class="dropdown-toggle" data-toggle="dropdown"%25%25item class="dropdown"%25%25list class="nav "%25%0a
-host:1370918057=127.0.0.1
-author:1370918044=MichaelPaulukonis
-diff:1370918044:1370918035:=
-host:1370918044=127.0.0.1
-author:1370918035=MichaelPaulukonis
-diff:1370918035:1370917929:=7c7%0a%3c * [[{=$Group}]]%25link class="dropdown-toggle" data-toggle="dropdown"%25%25item class="dropdown"%25%25list class="nav "%25%0a---%0a> * {=$Group}%25item class="dropdown"%25%25list class="nav "%25%0a
-host:1370918035=127.0.0.1
-author:1370917929=MichaelPaulukonis
-diff:1370917929:1370917701:=0a1,8%0a> * thing%0a> ** sub-thing%0a> ** sub-thing%0a> * another%0a> **sub%0a> ** sub%0a> %0a> %0a9c17%0a%3c ** [[{=$FullName}|{=$Titlespaced}]]%25list class="dropdown-menu"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a---%0a> ** [[{=$FullName}|{=$Titlespaced}]]%25list class="nav "%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a
-host:1370917929=127.0.0.1
-author:1370917701=MichaelPaulukonis
-diff:1370917701:1370917469:=15c15%0a%3c * {=$Group}%25item class="dropdown"%25%25list class="nav "%25%0a---%0a> * [[{=$FullName}|{=$Titlespaced}]]%25item class="dropdown"%25%25list class="nav "%25%0a
-host:1370917701=127.0.0.1
-author:1370917469=MichaelPaulukonis
-diff:1370917469:1370917298:=14,15c14%0a%3c (:template first {=$Group}:)%0a%3c * [[{=$FullName}|{=$Titlespaced}]]%25item class="dropdown"%25%25list class="nav "%25%0a---%0a> (:template first {=$Group}:)%25list class="dropdown"%25%0a17c16%0a%3c ** [[{=$FullName}|{=$Titlespaced}]]%25list class="nav "%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a---%0a> * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav "%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a
-host:1370917469=127.0.0.1
-author:1370917298=MichaelPaulukonis
-diff:1370917298:1370916427:=1,8d0%0a%3c * thing%0a%3c ** sub-thing%0a%3c ** sub-thing%0a%3c * another%0a%3c **sub%0a%3c ** sub%0a%3c %0a%3c %0a14,16c6%0a%3c (:template first {=$Group}:)%25list class="dropdown"%25%0a%3c (:template each:)%0a%3c * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav "%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a---%0a> * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav dropdown"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a
-host:1370917298=127.0.0.1
-author:1370916427=MichaelPaulukonis
-diff:1370916427:1370916287:=10c10%0a%3c (:pagelist link=Category.Bootstrapmenu fmt=Bootstrap.LocalTemplates#titlespaced:)%0a---%0a> (:pagelist group={$Group} fmt=#titlespaced count=5:)%0a
-host:1370916427=127.0.0.1
-author:1370916287=MichaelPaulukonis
-diff:1370916287:1370916227:=
-host:1370916287=127.0.0.1
-author:1370916227=MichaelPaulukonis
-diff:1370916227:1370916214:=6c6%0a%3c * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav dropdown"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a---%0a> * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a
-host:1370916227=127.0.0.1
-author:1370916214=MichaelPaulukonis
-diff:1370916214:1370916182:=
-host:1370916214=127.0.0.1
-author:1370916182=MichaelPaulukonis
-diff:1370916182:1370916015:=6c6%0a%3c * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a---%0a> * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav dropdown"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a
-host:1370916182=127.0.0.1
-author:1370916015=MichaelPaulukonis
-diff:1370916015:1370915949:=5a6,8%0a> (:template first {=$Group}:) %0a> %25item class="dropdown"%25%0a> (:template each:)%0a
-host:1370916015=127.0.0.1
-author:1370915949=MichaelPaulukonis
-diff:1370915949:1370915795:=9c9%0a%3c * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav dropdown"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a---%0a> * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a
-host:1370915949=127.0.0.1
-author:1370915795=MichaelPaulukonis
-diff:1370915795:1370915629:=6,7c6%0a%3c (:template first {=$Group}:) %0a%3c %25item class="dropdown"%25%0a---%0a> (:template first {=$Group}:) %25item class="dropdown"%25%0a15,19d13%0a%3c %0a%3c (:markup:)%0a%3c (:pagelist  fmt=#titlespaced count=15:)%0a%3c (:markupend:)%0a%3c %0a
-host:1370915795=127.0.0.1
-author:1370915629=MichaelPaulukonis
-diff:1370915629:1370915518:=7d6%0a%3c (:template each:)%0a
-host:1370915629=127.0.0.1
-author:1370915518=MichaelPaulukonis
-diff:1370915518:1370915478:=
-host:1370915518=127.0.0.1
-author:1370915478=MichaelPaulukonis
-diff:1370915478:1370915310:=6c6%0a%3c (:template first {=$Group}:) %25item class="dropdown"%25%0a---%0a> (:if equal {%3c$Group} {=$Group}:)%25item class="dropdown"%25%0a
-host:1370915478=127.0.0.1
-author:1370915310=MichaelPaulukonis
-diff:1370915310:1370915028:=6c6,7%0a%3c (:if equal {%3c$Group} {=$Group}:)%25item class="dropdown"%25%0a---%0a> (:template first:)%25item class="dropdown"%25%0a> (:template each:)%0a
-host:1370915310=127.0.0.1
-author:1370915028=MichaelPaulukonis
-diff:1370915028:1370914863:=7d6%0a%3c (:template each:)%0a
-host:1370915028=127.0.0.1
-author:1370914863=MichaelPaulukonis
-diff:1370914863:1370914853:=
-host:1370914863=127.0.0.1
-author:1370914853=MichaelPaulukonis
-diff:1370914853:1370914787:=6d5%0a%3c (:template first:)%25item class="dropdown"%25%0a7a7%0a> (:template first:)%25item class="dropdown"%25%0a
-host:1370914853=127.0.0.1
-author:1370914787=MichaelPaulukonis
-diff:1370914787:1370914776:=7c7%0a%3c (:template first:)%25item class="dropdown"%25%0a---%0a> (:template first:)%25item class="dropdown"%25(:template:)%0a
-host:1370914787=127.0.0.1
-author:1370914776=MichaelPaulukonis
-diff:1370914776:1370914592:=6,7c6%0a%3c * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a%3c (:template first:)%25item class="dropdown"%25(:template:)%0a---%0a> * [[{=$FullName}|{=$Titlespaced}]]%25list class="dropdown"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a
-host:1370914776=127.0.0.1
-author:1370914592=MichaelPaulukonis
-diff:1370914592:1369968905:=6c6%0a%3c * [[{=$FullName}|{=$Titlespaced}]]%25list class="dropdown"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a---%0a> * [[{=$FullName}|{=$Titlespaced}]]%25list class="nav"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a
-host:1370914592=127.0.0.1
+text=!! pagelist formats%0aSee [[PmWiki/Pagelists]] and [[PmWiki/WikiStyles]] for more information%0a%0a!! Navbar format%0a[[#titlespaced]]%0a* [[{=$FullName}|{=$Titlespaced}]]%25list class="nav"%25(:if name {=$FullName}:)%25item class="active"%25(:ifend:)%0a[[#titlespacedend]]%0a%0a(:markup:)%0a(:pagelist group={$Group} fmt=#titlespaced count=5:)%0a(:markupend:)%0a%0a!! one-line%0a(needs some editing)%0a[[#oneline]](:if ! equal {%3c$Group} {=$Group}:)%0a(:if true:) | [[{=$FullName}|+]] \%0a[[#onelineend]]%0a%0a(:markup:)%0a(:pagelist group={$Group} fmt=#oneline count=5:)%0a(:markupend:)
+time=1369968905
 author:1369968905=MichaelPaulukonis
 diff:1369968905:1369968872:=
 host:1369968905=127.0.0.1

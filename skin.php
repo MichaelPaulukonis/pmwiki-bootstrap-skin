@@ -11,7 +11,7 @@
 
 global $RecipeInfo, $SkinName, $SkinRecipeName, $WikiStyleApply, $PageLogoUrl,
         $HTMLHeaderFmt, $PageHeaderFmt, $PageNavStyle, $UseDarkstrapTheme, $UseFlatUI,
-        $PageEditForm, $PageTextStartFmt;
+$PageEditForm, $PageTextStartFmt, $BodySpan;
 # Some Skin-specific values
 $RecipeInfo['BootstrapSkin']['Version'] = '2013-05-20';
 $SkinName = 'bootstrap-fluid';
@@ -80,5 +80,28 @@ function BootstrapIcon($args) {
 
         return $icon;
 }
+
+# if (:noleft:) markup is present, mainbody will be span12
+# otherwise, default to span9 (ie sidebar is span3)
+if (! isset($BodySpan)) {
+   $BodySpan = "span9";
+}
+
+Markup('noleft', 'directives',
+       '/\\(:noleft:\\)/ei',
+       "HideLeftBoot()");
+
+function HideLeftBoot() {
+
+    global $BodySpan;
+    $BodySpan = "span12";
+
+    SetTmplDisplay('PageLeftFmt',0);
+
+}
+
+
+
+
 
 

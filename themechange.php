@@ -7,7 +7,13 @@
     (at your option) any later version.
 */
 
-# attempt to set configs via actions....
+# set configs via actions....
+/* TODO: say, it would be interesting (if not downright useful for my own website)
+   to be able to have a single-page theme markup
+   as in -- use on THIS PAGE ONLY
+   hrm.....
+
+ */
 
 global $Now, $CookiePrefix, $BootstrapThemeCookie, $BootstrapCoreCookie, $BootstrapNavbarCookie,
         $BootstrapTheme, $BootstrapCore, $BootstrapNav;
