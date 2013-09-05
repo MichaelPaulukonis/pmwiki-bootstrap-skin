@@ -76,9 +76,9 @@ Markup('icon', 'inline',
 
 function BootstrapIcon($args) {
 
-        $icon = sprintf('<i class=%s ></i>', $args);
+       $icon = sprintf('<i class=%s ></i>', $args);
 
-        return $icon;
+       Keep($icon);
 }
 
 # if (:noleft:) markup is present, mainbody will be span12

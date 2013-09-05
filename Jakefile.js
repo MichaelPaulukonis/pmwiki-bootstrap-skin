@@ -10,24 +10,32 @@
 var open = require('open');
 var config = require('./config');
 
+
+// task('default', ['push']); // if I could figure out a way to pass a parameter here, I would
+
 desc('dump');
 task('dump', [], function() {
     console.log(config);
 });
 
-desc('This is a simple complete-project copy.');
-task('default', [], function () {
-    push(config.target.wikitest);
+desc('Push the project (no ignore) to the config location passed in..');
+task('push', [], function (location) {
+
+    if (! config.target.hasOwnProperty(location)) {
+        console.error(location + ' is not a valid location. Try one of the following:');
+        console.log(config.target);
+        return;
+    }
+    console.log(config.target[location]);
+    // push(config.target[location]);
     });
 
-desc('This is a simple complete-project copy.');
-task('freelance', [], function () {
-    push(config.target.freelance);
-    });
+
 
 var push = function(target) {
     // TODO: this is more complicated
     // we want to ignore things. or only hit certain things. :::sigh:::
+    jake.mkdirP(target);
     jake.cpR("./", target);
     };
 
