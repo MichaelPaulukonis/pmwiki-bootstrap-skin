@@ -132,8 +132,8 @@ function GroupDropdownMenu($args) {
     $group_list = GetListOfWikiGroups();
     $formatted_list = BuildGroupList($group_list);
 
-    /* return Keep($inline_code_begin.$formatted_list.$inline_code_end); */
-    return Keep(GetBlob());
+    return Keep($inline_code_begin.$formatted_list.$inline_code_end);
+    /* return Keep(GetBlob()); */
 }
 
 function GetListOfWikiGroups() {
@@ -151,9 +151,10 @@ function GetListOfWikiGroups() {
     return $grouplist;
 }
 
+// test blob from http://scottgalloway.blogspot.com/2012/08/twitter-bootstrap-nested-nav-lists.html
 function GetBlob() {
 
-$blob = '<li class="dropdown">   <a class="dropdown-toggle" data-toggle="dropdown" href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Nested Lists<b class="caret"></b></a>  <ul class="dropdown-menu"><li class="nav-header">Top Stuff</li>
+    $blob = '<li class="dropdown">   <a class="dropdown-toggle" data-toggle="dropdown" href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Nested Lists<b class="caret"></b></a>  <ul class="dropdown-menu"><li class="nav-header">Top Stuff</li>
 <li class="nav nav-list">Nested List<b class="caret"></b>  <ul class="dropdown-menu"><li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Foo</a></li>
 <li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bar</a></li>
 <li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bat</a></li>
