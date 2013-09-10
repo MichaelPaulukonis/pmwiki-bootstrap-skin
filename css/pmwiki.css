@@ -52,7 +52,7 @@ body {
 .wikimessage { margin-top:4px; margin-bottom:4px; font-style:italic; }
 
 /* These affect the printed appearance of the web view (not the separate
-** print view) of pages.  The sidebar and action links aren't printed. */
+** print view) of pages.  The sidebar and action links aren not printed. */
 @media print {
   body { width:auto; margin:0px; padding:0.5em; }
   #wikihead, #wikileft, #wikicmds, .footnav { display:none; }
@@ -62,4 +62,71 @@ body {
 /* special tags for Bootstrap-specific pages, to display (or not) in the template */
 .bootstraptags {
     display: none;
+}
+
+/* Bootstrap nested lists
+** from http://scottgalloway.blogspot.com/2012/08/twitter-bootstrap-nested-nav-lists.html */
+
+.nav li.dropdown ul.dropdown-menu li:hover ul {
+    display:block;
+    position:absolute;
+    left:100%;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.nav li.dropdown ul.dropdown-menu ul {
+    display: none;
+    float:right;
+    position: relative;
+    top: auto;
+    margin-top: -27px;
+}
+
+.nav li.dropdown ul.dropdown-menu .nav-list .caret {
+    border-bottom-color: #999;
+    border-top-color: #999;
+    float: right;
+}
+
+.nav li.dropdown ul.dropdown-menu .nav-list:hover .caret {
+    margin-left: 6px;
+    margin-top: 5px;
+    margin-right: 1px;
+    border-right: 0;
+    border-left: 4px solid #fff;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}
+
+.nav li.dropdown ul .nav-list .dropdown-menu:after {
+    top: 8px;
+    left: -12px;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 6px solid #fff;
+}
+
+.nav li.dropdown ul .nav-list .dropdown-menu:before {
+    left: -7px;
+    border-left: 0;
+    top: 7px;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-right: 7px solid rgba(0,0,0,0.05);
+}
+
+
+.nav li.dropdown ul.dropdown-menu li.nav-list:hover {
+    background: #08c;
+    color: #fff;
+    cursor: pointer;
+}
+
+.nav li.dropdown ul.dropdown-menu .nav-list {
+    font-size: 13px;
+    color: #333;
+    float: none;
+    line-height: 21px;
 }

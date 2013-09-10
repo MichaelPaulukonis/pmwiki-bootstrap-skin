@@ -112,21 +112,28 @@ where title is the setting for the dropdown group.
 
 ganked from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
 
+
+
+
 */
 Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/e",
        "GroupDropdownMenu('$1')");
 
 function GroupDropdownMenu($args) {
     $args = ParseArgs($args); /* get them in a form we can use */
-    $inline_code_begin="<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">".$args['title']."<b class=\"caret\"></b></a><ul class=\"dropdown-menu\">";
-    $inline_code_end="</ul></li>";
 
-    /* For groups, we want the list of group names from the wiki.d
-* working directory */
+// TODO: if title not present, default to "Dropdown"
+
+    $inline_code_begin = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".$args['title']."<b class='caret'></b></a><ul class='dropdown-menu'>";
+    $inline_code_end = "</ul></li>";
+
+    /* For groups, we want the list of group names from the wiki.d working directory */
 
     $group_list = GetListOfWikiGroups();
     $formatted_list = BuildGroupList($group_list);
-    return Keep($inline_code_begin.$formatted_list.$inline_code_end);
+
+    /* return Keep($inline_code_begin.$formatted_list.$inline_code_end); */
+    return Keep(GetBlob());
 }
 
 function GetListOfWikiGroups() {
@@ -144,12 +151,46 @@ function GetListOfWikiGroups() {
     return $grouplist;
 }
 
+function GetBlob() {
+
+$blob = '<li class="dropdown">   <a class="dropdown-toggle" data-toggle="dropdown" href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Nested Lists<b class="caret"></b></a>  <ul class="dropdown-menu"><li class="nav-header">Top Stuff</li>
+<li class="nav nav-list">Nested List<b class="caret"></b>  <ul class="dropdown-menu"><li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Foo</a></li>
+<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bar</a></li>
+<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bat</a></li>
+</ul></li>
+<li class="nav nav-list">Nested List<b class="caret"></b>  <ul class="dropdown-menu"><li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Foo</a></li>
+<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bar</a></li>
+</ul></li>
+<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Sit</a></li>
+<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Amet</a></li>
+<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Dolor</a></li>
+<li class="divider"></li>
+<li class="nav-header">Other Stuff</li>
+<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Foo</a></li>
+<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bar</a></li>
+<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bat</a></li>
+</ul></li>';
+
+return $blob;
+
+}
+
+// TODO: make nested dropdowns possible...
+// hard-code some for a test?
+
 function BuildGroupList($grouplist) {
     $out = '';
     foreach($grouplist as $grouppage) {
         $out .= '<li>';
         $out .= MakeLink($pagename,$grouppage);
+        /* $out .= '</li>'; */
+
+        $out .= "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".$args['title']."<b class='caret'></b></a><ul class='dropdown-menu'>";
+        $out .= '<li>';
+        $out .= MakeLink($pagename,$grouppage);
         $out .= '</li>';
+        $out .= "</ul></li>";
+
     }
     return $out;
 }
