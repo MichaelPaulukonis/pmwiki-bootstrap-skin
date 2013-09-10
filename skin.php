@@ -103,5 +103,58 @@ function HideLeftBoot() {
 
 
 
+/* Dropdowns
+Used in menu sections (navbar, etc). To use, insert:
 
+(:bgroups title="Groups":)
 
+where title is the setting for the dropdown group.
+
+ganked from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
+
+*/
+Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/e",
+       "GroupDropdownMenu('$1')");
+
+function GroupDropdownMenu($args) {
+    $args = ParseArgs($args); /* get them in a form we can use */
+    $inline_code_begin="<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">".$args['title']."<b class=\"caret\"></b></a><ul class=\"dropdown-menu\">";
+    $inline_code_end="</ul></li>";
+
+    /* For groups, we want the list of group names from the wiki.d
+* working directory */
+
+    $group_list = GetListOfWikiGroups();
+    $formatted_list = BuildGroupList($group_list);
+    return Keep($inline_code_begin.$formatted_list.$inline_code_end);
+}
+
+function GetListOfWikiGroups() {
+    $pagelist = ListPages('*.RecentChanges');
+    $grouplist = array();
+    foreach($pagelist as $page) {
+        list ($group, $name) = explode('.',$page);
+        if (PageExists("$group.$group")) {
+            $grouplist[]= "$group(.$group)";
+        } elseif (PageExists("$group.HomePage")) {
+            $grouplist[]= "$group(.HomePage)";
+        }
+    }
+    sort($grouplist);
+    return $grouplist;
+}
+
+function BuildGroupList($grouplist) {
+    $out = '';
+    foreach($grouplist as $grouppage) {
+        $out .= '<li>';
+        $out .= MakeLink($pagename,$grouppage);
+        $out .= '</li>';
+    }
+    return $out;
+}
+
+Markup("bgroupbegin",">links","/\\(:bgroupbegin (\\w+):\\)/e",
+       "Keep('<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">$1<b class=\"caret\"></b></a><ul class=\"dropdown-menu\">')");
+Markup("bgroupend",">links","/\\(:bgroupend:\\)/",
+       Keep('</ul></li>'));
