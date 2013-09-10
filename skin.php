@@ -154,23 +154,26 @@ function GetListOfWikiGroups() {
 // test blob from http://scottgalloway.blogspot.com/2012/08/twitter-bootstrap-nested-nav-lists.html
 function GetBlob() {
 
-    $blob = '<li class="dropdown">   <a class="dropdown-toggle" data-toggle="dropdown" href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Nested Lists<b class="caret"></b></a>  <ul class="dropdown-menu"><li class="nav-header">Top Stuff</li>
-<li class="nav nav-list">Nested List<b class="caret"></b>  <ul class="dropdown-menu"><li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Foo</a></li>
-<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bar</a></li>
-<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bat</a></li>
+    $blob = "<li class='dropdown'>
+<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Nested Lists<b class='caret'></b></a>
+
+<ul class='dropdown-menu'><li class='nav-header'>Top Stuff</li>
+<li class='nav nav-list'>Nested List<b class='caret'></b>  <ul class='dropdown-menu'><li><a href='#'>Foo</a></li>
+<li><a href='#'>Bar</a></li>
+<li><a href='#'>Bat</a></li>
 </ul></li>
-<li class="nav nav-list">Nested List<b class="caret"></b>  <ul class="dropdown-menu"><li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Foo</a></li>
-<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bar</a></li>
+<li class='nav nav-list'>Nested List<b class='caret'></b>  <ul class='dropdown-menu'><li><a href='#'>Foo</a></li>
+<li><a href='#'>Bar</a></li>
 </ul></li>
-<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Sit</a></li>
-<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Amet</a></li>
-<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Dolor</a></li>
-<li class="divider"></li>
-<li class="nav-header">Other Stuff</li>
-<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Foo</a></li>
-<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bar</a></li>
-<li><a href="http://www.blogger.com/blogger.g?blogID=7873061242057331104#">Bat</a></li>
-</ul></li>';
+<li><a href='#'>Sit</a></li>
+<li><a href='#'>Amet</a></li>
+<li><a href='#'>Dolor</a></li>
+<li class='divider'></li>
+<li class='nav-header'>Other Stuff</li>
+<li><a href='#'>Foo</a></li>
+<li><a href='#'>Bar</a></li>
+<li><a href='#'>Bat</a></li>
+</ul></li>";
 
 return $blob;
 
@@ -182,15 +185,23 @@ return $blob;
 function BuildGroupList($grouplist) {
     $out = '';
     foreach($grouplist as $grouppage) {
-        $out .= '<li>';
-        $out .= MakeLink($pagename,$grouppage);
+        /* $out .= '<li>'; */
+        /* $out .= MakeLink($pagename,$grouppage); */
         /* $out .= '</li>'; */
 
-        $out .= "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".$args['title']."<b class='caret'></b></a><ul class='dropdown-menu'>";
-        $out .= '<li>';
-        $out .= MakeLink($pagename,$grouppage);
-        $out .= '</li>';
-        $out .= "</ul></li>";
+// while ignoring our real data, this does give us dropdowns
+// so, we will need Groups with sub-pages
+// the group name will need to be extracted
+// and we should make the first link be to the group.
+
+// need to kill the display: block amd padding for dropdown-names that are also links. :::sigh:::
+
+        $out .= "<li class='nav nav-list'>".MakeLink($pagename,$grouppage)."<b class='caret'></b>
+<ul class='dropdown-menu'>
+<li><a href='#'>Foo</a></li>
+<li><a href='#'>Bar</a></li>
+<li><a href='#'>Bat</a></li>
+</ul></li>";
 
     }
     return $out;
