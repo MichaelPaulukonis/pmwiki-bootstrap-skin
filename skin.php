@@ -106,106 +106,84 @@ function HideLeftBoot() {
 /* Dropdowns
 Used in menu sections (navbar, etc). To use, insert:
 
-(:bgroups title="Groups":)
+(:bgroups title="Groups" pattern="pattern":)
 
 where title is the setting for the dropdown group.
 
 ganked from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
 
-
-
-
 */
 Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/e",
        "GroupDropdownMenu('$1')");
 
-function GroupDropdownMenu($args) {
-    $args = ParseArgs($args); /* get them in a form we can use */
+function GroupDropdownMenu($inp) {
 
-// TODO: if title not present, default to "Dropdown"
+    $defaults = array('title'=>'Dropdown');
+
+    $args = array_merge($defaults, ParseArgs($inp));
 
     $inline_code_begin = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".$args['title']."<b class='caret'></b></a><ul class='dropdown-menu'>";
     $inline_code_end = "</ul></li>";
 
-    /* For groups, we want the list of group names from the wiki.d working directory */
+    // NOTE: if pattern not present, will default to ALL pages in wiki
+    $pattern = $args['pattern'];
 
-    $group_list = GetListOfWikiGroups();
+// TODO: exclude pattern
+// look at http://www.pmwiki.org/wiki/PmWiki/PageLists
+
+    $group_list = GetWikiPages($pattern);
     $formatted_list = BuildGroupList($group_list);
 
     return Keep($inline_code_begin.$formatted_list.$inline_code_end);
-    /* return Keep(GetBlob()); */
+
 }
 
-function GetListOfWikiGroups() {
-    $pagelist = ListPages('*.RecentChanges');
+function GetWikiPages($pattern) {
+    $pagelist = ListPages($pattern);
     $grouplist = array();
     foreach($pagelist as $page) {
         list ($group, $name) = explode('.',$page);
-        if (PageExists("$group.$group")) {
-            $grouplist[]= "$group(.$group)";
-        } elseif (PageExists("$group.HomePage")) {
-            $grouplist[]= "$group(.HomePage)";
-        }
+        $grouplist[] = "($group.)$name";
     }
     sort($grouplist);
     return $grouplist;
 }
 
-// test blob from http://scottgalloway.blogspot.com/2012/08/twitter-bootstrap-nested-nav-lists.html
-function GetBlob() {
 
-    $blob = "<li class='dropdown'>
-<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Nested Lists<b class='caret'></b></a>
-
-<ul class='dropdown-menu'><li class='nav-header'>Top Stuff</li>
-<li class='nav nav-list'>Nested List<b class='caret'></b>  <ul class='dropdown-menu'><li><a href='#'>Foo</a></li>
-<li><a href='#'>Bar</a></li>
-<li><a href='#'>Bat</a></li>
-</ul></li>
-<li class='nav nav-list'>Nested List<b class='caret'></b>  <ul class='dropdown-menu'><li><a href='#'>Foo</a></li>
-<li><a href='#'>Bar</a></li>
-</ul></li>
-<li><a href='#'>Sit</a></li>
-<li><a href='#'>Amet</a></li>
-<li><a href='#'>Dolor</a></li>
-<li class='divider'></li>
-<li class='nav-header'>Other Stuff</li>
-<li><a href='#'>Foo</a></li>
-<li><a href='#'>Bar</a></li>
-<li><a href='#'>Bat</a></li>
-</ul></li>";
-
-return $blob;
-
-}
-
-// TODO: make nested dropdowns possible...
-// hard-code some for a test?
-
-function BuildGroupList($grouplist) {
+/*
+  HTML based on code from http://scottgalloway.blogspot.com/2012/08/twitter-bootstrap-nested-nav-lists.html
+ */
+function BuildGroupList($list) {
     $out = '';
-    foreach($grouplist as $grouppage) {
-        /* $out .= '<li>'; */
-        /* $out .= MakeLink($pagename,$grouppage); */
-        /* $out .= '</li>'; */
 
-// while ignoring our real data, this does give us dropdowns
-// so, we will need Groups with sub-pages
-// the group name will need to be extracted
-// and we should make the first link be to the group.
+    $group = '';
+    foreach($list as $page) {
+        # if group name is empty or != previous group name, capture it and start new unordered list
+        preg_match('/\((.*?).\)/', $page, $matches);
+        if ($group == '' || $group != $matches[1]) {
 
-// need to kill the display: block amd padding for dropdown-names that are also links. :::sigh:::
+            # only close if a group has been set
+            if ($group != '') {
+                $out .= "</ul></li>";
+            }
 
-        $out .= "<li class='nav nav-list'>".MakeLink($pagename,$grouppage)."<b class='caret'></b>
-<ul class='dropdown-menu'>
-<li><a href='#'>Foo</a></li>
-<li><a href='#'>Bar</a></li>
-<li><a href='#'>Bat</a></li>
-</ul></li>";
+            $group = $matches[1];
 
+            $out .= "<li class='nav nav-list'>$group<b class='caret'></b>";
+            $out .= "<ul class='dropdown-menu'>";
+        }
+
+        $out .= '<li>';
+        $out .= MakeLink($pagename, $page);
+        $out .= '</li>';
     }
+
+    $out .= "</ul></li>";
+
     return $out;
 }
+
+
 
 Markup("bgroupbegin",">links","/\\(:bgroupbegin (\\w+):\\)/e",
        "Keep('<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">$1<b class=\"caret\"></b></a><ul class=\"dropdown-menu\">')");
