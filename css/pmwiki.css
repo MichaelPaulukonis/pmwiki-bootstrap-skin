@@ -13,10 +13,23 @@
  * here.
  */
 
-body {
-    padding-top: 60px;
+@media (max-width: 979px) {
+	body {
+		padding-top: 0px;
+	}
+	
+	.pull-right { 
+		position:relative;
+		float: right;
+		z-index:10;
+	} 
 }
 
+@media (min-width: 980px) {
+	body {
+		padding-top: 60px;
+	}
+}
 .container, .container-fluid {
     margin-right: auto;
     margin-left: auto;
