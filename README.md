@@ -8,7 +8,7 @@ Follow development at the [Trello board](https://trello.com/board/pmwiki-bootstr
 Notes also at [PmWiki Skins](http://www.pmwiki.org/wiki/Skins/TwitterBootstrap)
 
 # Installation
-Copy to /path/to/pwmiki/pub/skins/bootstrap-fluid
+Copy just about everything (excluding: `jakefile.js`, `readme.md`, `package.json`, `.gitignore`) to `/path/to/pwmiki/pub/skins/bootstrap-fluid`
 
 Add the following to config.php:
 
@@ -36,6 +36,9 @@ See the included pages `Bootstrap.Boostrap`, `Bootstrap.Markup` and `Bootstrap.S
 
 # Roadmap
 
+* zip-file for installation
+* Improved handling of top-menu components
+* Bootstrap dropdowns (nested)
 * More markup documentation.
 * Better markup support for Bootstrap components.
 * Documentation on how to add new Bootstrap themes.
