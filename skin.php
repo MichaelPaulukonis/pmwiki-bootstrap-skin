@@ -33,8 +33,9 @@ if ($where>1) $where--;
 array_splice($WikiLibDirs, $where, 0,
              array(new PageStore("$SkinDir/wikilib.d/\$FullName")));
 
-# no code to enable/disable
-# not necessary?
+# add stylechange.php for cookie setting code if set.
+/* if ($EnableStyleOptions == 1)  */
+# disabling this causes a ton of issues - need to revisit to see what should be where....
 include_once("$SkinDir/themechange.php");
 
 ## required for apply-actions
@@ -99,8 +100,6 @@ function HideLeftBoot() {
     SetTmplDisplay('PageLeftFmt',0);
 
 }
-
-
 
 
 /* Dropdowns
