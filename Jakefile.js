@@ -27,7 +27,7 @@ task('push', [], function (location) {
         return;
     }
     console.log(config.target[location]);
-    // push(config.target[location]);
+    push(config.target[location]);
     });
 
 

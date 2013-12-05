@@ -33,8 +33,9 @@ if ($where>1) $where--;
 array_splice($WikiLibDirs, $where, 0,
              array(new PageStore("$SkinDir/wikilib.d/\$FullName")));
 
-# no code to enable/disable
-# not necessary?
+# add stylechange.php for cookie setting code if set.
+/* if ($EnableStyleOptions == 1)  */
+# disabling this causes a ton of issues - need to revisit to see what should be where....
 include_once("$SkinDir/themechange.php");
 
 ## required for apply-actions
@@ -101,7 +102,89 @@ function HideLeftBoot() {
 }
 
 
+/* Dropdowns
+Used in menu sections (navbar, etc). To use, insert:
+
+(:bgroups title="Groups" pattern="pattern":)
+
+where title is the setting for the dropdown group.
+
+ganked from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
+
+*/
+Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/e",
+       "GroupDropdownMenu('$1')");
+
+function GroupDropdownMenu($inp) {
+
+    $defaults = array('title'=>'Dropdown');
+
+    $args = array_merge($defaults, ParseArgs($inp));
+
+    $inline_code_begin = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".$args['title']."<b class='caret'></b></a><ul class='dropdown-menu'>";
+    $inline_code_end = "</ul></li>";
+
+    // NOTE: if pattern not present, will default to ALL pages in wiki
+    $pattern = $args['pattern'];
+
+// TODO: exclude pattern
+// look at http://www.pmwiki.org/wiki/PmWiki/PageLists
+
+    $group_list = GetWikiPages($pattern);
+    $formatted_list = BuildGroupList($group_list);
+
+    return Keep($inline_code_begin.$formatted_list.$inline_code_end);
+
+}
+
+function GetWikiPages($pattern) {
+    $pagelist = ListPages($pattern);
+    $grouplist = array();
+    foreach($pagelist as $page) {
+        list ($group, $name) = explode('.',$page);
+        $grouplist[] = "($group.)$name";
+    }
+    sort($grouplist);
+    return $grouplist;
+}
+
+
+/*
+  HTML based on code from http://scottgalloway.blogspot.com/2012/08/twitter-bootstrap-nested-nav-lists.html
+ */
+function BuildGroupList($list) {
+    $out = '';
+
+    $group = '';
+    foreach($list as $page) {
+        # if group name is empty or != previous group name, capture it and start new unordered list
+        preg_match('/\((.*?).\)/', $page, $matches);
+        if ($group == '' || $group != $matches[1]) {
+
+            # only close if a group has been set
+            if ($group != '') {
+                $out .= "</ul></li>";
+            }
+
+            $group = $matches[1];
+
+            $out .= "<li class='nav nav-list'>$group<b class='caret'></b>";
+            $out .= "<ul class='dropdown-menu'>";
+        }
+
+        $out .= '<li>';
+        $out .= MakeLink($pagename, $page);
+        $out .= '</li>';
+    }
+
+    $out .= "</ul></li>";
+
+    return $out;
+}
 
 
 
-
+Markup("bgroupbegin",">links","/\\(:bgroupbegin (\\w+):\\)/e",
+       "Keep('<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">$1<b class=\"caret\"></b></a><ul class=\"dropdown-menu\">')");
+Markup("bgroupend",">links","/\\(:bgroupend:\\)/",
+       Keep('</ul></li>'));
