@@ -108,8 +108,6 @@ var getProjectFiles = function() {
 
     var list = new jake.FileList();
 
-    // TODO: update for this repo
-
     list.exclude(/.*bak.*/);
 
     list.include('*.php');
@@ -121,6 +119,7 @@ var getProjectFiles = function() {
     list.include('css/bootstrap.css');
     list.include('css/bootstrap-responsive.css');
     list.include('css/flat-ui.css');
+    list.include('css/darkstrap.css');
     list.include('css/pmwiki.css');
 
     // console.log(list);
