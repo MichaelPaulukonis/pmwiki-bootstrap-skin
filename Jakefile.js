@@ -7,8 +7,9 @@
 
   */
 
-var open = require('open');
-var config = require('./config');
+var open = require('open'),
+    config = require('./config'),
+    pkgjson = require('./package.json');
 
 
 // task('default', ['push']); // if I could figure out a way to pass a parameter here, I would
@@ -31,16 +32,21 @@ task('push', [], function (location) {
     });
 
 
-
 var push = function(target) {
-    // TODO: this is more complicated
-    // we want to ignore things. or only hit certain things. :::sigh:::
-    jake.mkdirP(target);
-    jake.cpR("./", target);
+
+    var path = require("path"),
+        fs = require("fs");
+
+    var copy = function(file) {
+        var dest = path.join(target, path.dirname(file));
+        jake.mkdirP(dest);
+        jake.cpR(file, dest); // although this is reccursive, if the directory doesn't exist... creates a file of the same name. hunh.
     };
 
+    getProjectFiles().toArray().map(copy);
 
-// TODO: zip
+    };
+
 
 desc('Open remote repo in browser');
 task('openweb', [], function() {
@@ -49,39 +55,28 @@ task('openweb', [], function() {
 
 
 
-// TODO:
-// delete temp if already exists
-// create temp folder
-// copy included files to temp
-// zip temp
-// allow temp folder to remain
 desc('Zip up the project.');
 task('zip', [], function() {
 
     var name = 'bootstrap-skin';
 
-    var version = getDateFormatted();
+    var version = pkgjson.version;
 
-    var AdmZip = require('adm-zip');
+    var AdmZip = require('adm-zip'),
+        path = require('path');
     var zip = new AdmZip();
 
 
     var addFile = function(file) {
 
-        // UGH. this is system-dependent. is there another way to do this?
-        // say, from fs?
-        var path = file.substring(0, file.lastIndexOf('/') + 1);
+        var dir = path.dirname(file);
+        if (dir === '.') { dir = ''; } // addLocalFile doesn't resolve '.'
 
-        // console.log('path: ' + path + ' file: ' + file);
-        console.log('addLocalFile(' + file + ', ' + path + ');');
+        console.log('addLocalFile(' + file + ', ' + dir + ');');
 
-        zip.addLocalFile(file, path);
+        zip.addLocalFile(file, dir);
 
     };
-
-    // as it stands, everything is added, hooray!
-    // only in a flat structure, no sub-folders. boo.
-    // getProjectFiles().toArray().map(function(file) { zip.addLocalFile(file);});
 
     getProjectFiles().toArray().map(addFile);
 
@@ -122,12 +117,11 @@ var getProjectFiles = function() {
     list.include('css/darkstrap.css');
     list.include('css/pmwiki.css');
 
-    // console.log(list);
-
     return list;
 };
 
-
+// switching to semantic-versioning, from the package.json file?
+// or not. who knows.
 var getDateFormatted = function() {
     var d = new Date();
     var df = d.getFullYear() + '.' + pad((d.getMonth() + 1), 2) + '.' + pad(d.getDate(), 2);

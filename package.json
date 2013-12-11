@@ -1,6 +1,6 @@
 {
-  "name": "jakefile",
-  "description": "build and tools for project",
+  "name": "pmwiki-bootstrap-skin",
+  "description": "a bootstrap-based skin for the PmWiki CMS",
   "author": "MichaelPaulukonis (http://michaelpaulukonis.com)",
   "dependencies": {
     "adm-zip": "0.4.2",
@@ -8,5 +8,6 @@
    },
   "engine" : {
     "node" : "0.8.x"
-  }
+  },
+  "version" : "0.2.1"
 }
