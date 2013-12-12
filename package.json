@@ -6,9 +6,9 @@
     "adm-zip": "0.4.2",
     "open": "latest",
     "releasetools": "0.4.1"
-   },
-  "engine" : {
-    "node" : "0.8.x"
   },
-  "version" : "0.2.1"
+  "engine": {
+    "node": "0.8.x"
+  },
+  "version": "0.2.2"
 }
