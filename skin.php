@@ -69,8 +69,6 @@ function BootstrapButton($args) {
 
 }
 
-# the markup seems to work -- it's just that the CSS isn't finding the icon set...
-
 Markup('icon', 'inline',
        '/\\(:icon(\\s+.*?)?:\\)/ei',
        "BootstrapIcon(PSS('$1 '))");
@@ -79,7 +77,7 @@ function BootstrapIcon($args) {
 
        $icon = sprintf('<i class=%s ></i>', $args);
 
-       Keep($icon);
+       return Keep($icon);
 }
 
 # if (:noleft:) markup is present, mainbody will be span12
