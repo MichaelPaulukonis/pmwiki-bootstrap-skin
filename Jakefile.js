@@ -9,7 +9,8 @@
 
 var open = require('open'),
     config = require('./config'),
-    pkgjson = require('./package.json');
+    pkgjson = require('./package.json'),
+    releaseTools = require('releasetools');
 
 
 // task('default', ['push']); // if I could figure out a way to pass a parameter here, I would
@@ -137,3 +138,19 @@ var pad = function(nbr, width, fill) {
 var tempname = function() {
     return "build"; // that will do for now....
 };
+
+
+
+desc('Bump version in package.json');
+task('bump', function(releaseType) {
+    releaseType = releaseType || 'patch';
+    console.log('Bumping version in package.json...');
+    releaseTools.updateVersionInPackageJson(releaseType, function(err, oldVersion, newVersion) {
+        if (err) {
+            fail('Error while updating version in package.json: ' + err);
+        }
+        console.log(oldVersion + ' --> ' + newVersion);
+        console.log('Done!');
+        complete();
+    });
+}, true);
