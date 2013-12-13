@@ -124,23 +124,28 @@ function GroupDropdownMenu($inp) {
 
     // NOTE: if pattern not present, will default to ALL pages in wiki
     $pattern = $args['pattern'];
+    $exclude = $args['exclude']; // initial implementation is a naive string-check
 
 // TODO: exclude pattern
 // look at http://www.pmwiki.org/wiki/PmWiki/PageLists
 
-    $group_list = GetWikiPages($pattern);
+$group_list = GetWikiPages($pattern, $exclude);
     $formatted_list = BuildGroupList($group_list);
 
     return Keep($inline_code_begin.$formatted_list.$inline_code_end);
 
 }
 
-function GetWikiPages($pattern) {
+function GetWikiPages($pattern, $exclude) {
+    // ListPages is defined in PmWiki.php
+    // and takes a glob-pattern, NOT page-list patterns
     $pagelist = ListPages($pattern);
     $grouplist = array();
     foreach($pagelist as $page) {
         list ($group, $name) = explode('.',$page);
-        $grouplist[] = "($group.)$name";
+        if (stristr($exclude, $name) === FALSE) {
+            $grouplist[] = "($group.)$name";
+        }
     }
     sort($grouplist);
     return $grouplist;
