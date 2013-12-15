@@ -8,21 +8,23 @@
 */
 
 
-
 global $RecipeInfo, $SkinName, $SkinRecipeName, $WikiStyleApply, $PageLogoUrl,
-        $HTMLHeaderFmt, $PageHeaderFmt, $PageNavStyle, $UseDarkstrapTheme, $UseFlatUI,
-$PageEditForm, $PageTextStartFmt, $BodySpan;
+    $HTMLHeaderFmt, $PageHeaderFmt, $PageNavStyle, $UseDarkstrapTheme, $UseFlatUI,
+    $PageEditForm, $PageTextStartFmt, $BodySpan;
 # Some Skin-specific values
 $RecipeInfo['BootstrapSkin']['Version'] = '2013-05-20';
 $SkinName = 'bootstrap-fluid';
 $SkinRecipeName = "BootstrapSkin";
 
-# for use in conditional markup  (:if enabled TriadSkin:)
+# for use in conditional markup  (:if enabled BootstrapSkin:)
 global $BootstrapSkin; $BootstrapSkin = 1;
 
 SDV($PageEditForm, "Bootstrap.EditForm");
 
-$PageLogoUrl = "$SkinDirUrl/images/ico/favicon.png";
+# default, unless already set in config.php
+if (!isset($PageLogoUrl)) {
+    $PageLogoUrl = "$SkinDirUrl/images/ico/favicon.png";
+}
 
 
 ## from Hans Bracker's Triad skin (version 2008-07-10)
@@ -41,11 +43,13 @@ include_once("$SkinDir/themechange.php");
 ## required for apply-actions
 $WikiStyleApply['link'] = 'a';  #allows A to be labelled with class attributes
 
-
+# Markup() is a core pmwiki function defined in pmwiki.php
+# Keep() is a core pmwiki function defined in pmwiki.php
 Markup('button', 'links',
-       '/\\(:button(\\s+.*?)?:\\)/ei',
-       "Keep(BootstrapButton(PSS('$1 ')), 'L')");
+           '/\\(:button(\\s+.*?)?:\\)/ei',
+           "Keep(BootstrapButton(PSS('$1 ')), 'L')");
 
+# ParseArgs() is a core pmwiki function defined in pmwiki.php
 function BootstrapButton($args) {
 
         $opt = ParseArgs($args);
@@ -90,6 +94,7 @@ Markup('noleft', 'directives',
        '/\\(:noleft:\\)/ei',
        "HideLeftBoot()");
 
+# SetTmplDisplay() is a core pmwiki function defined in pmwiki.php
 function HideLeftBoot() {
 
     global $BodySpan;
@@ -101,14 +106,13 @@ function HideLeftBoot() {
 
 
 /* Dropdowns
-Used in menu sections (navbar, etc). To use, insert:
+   Used in menu sections (navbar, etc). To use, insert:
 
-(:bgroups title="Groups" pattern="pattern":)
+   (:bgroups title=Groups pattern=pattern exclude=glob:)
 
-where title is the setting for the dropdown group.
+   where title is the setting for the dropdown group.
 
-ganked from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
-
+   ganked from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
 */
 Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/e",
        "GroupDropdownMenu('$1')");
@@ -119,26 +123,31 @@ function GroupDropdownMenu($inp) {
 
     $args = array_merge($defaults, ParseArgs($inp));
 
+
     $inline_code_begin = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".$args['title']."<b class='caret'></b></a><ul class='dropdown-menu'>";
     $inline_code_end = "</ul></li>";
 
     // NOTE: if pattern not present, will default to ALL pages in wiki
+    // hrm. "pattern" should probably change to "include"....
     $pattern = $args['pattern'];
     $exclude = $args['exclude']; // initial implementation is a naive string-check
 
-// TODO: exclude pattern
-// look at http://www.pmwiki.org/wiki/PmWiki/PageLists
+    // TODO: improve exclude pattern
+    // look at http://www.pmwiki.org/wiki/PmWiki/PageLists
 
-$group_list = GetWikiPages($pattern, $exclude);
+    $group_list = GetWikiPages($pattern, $exclude);
     $formatted_list = BuildGroupList($group_list);
 
     return Keep($inline_code_begin.$formatted_list.$inline_code_end);
 
 }
 
+/*
+  ListPages() is a core pmwiki function defined in pmwiki.php
+  and takes a glob-pattern, NOT page-list patterns
+*/
 function GetWikiPages($pattern, $exclude) {
-    // ListPages is defined in PmWiki.php
-    // and takes a glob-pattern, NOT page-list patterns
+
     $pagelist = ListPages($pattern);
     $grouplist = array();
     foreach($pagelist as $page) {
@@ -154,6 +163,7 @@ function GetWikiPages($pattern, $exclude) {
 
 /*
   HTML based on code from http://scottgalloway.blogspot.com/2012/08/twitter-bootstrap-nested-nav-lists.html
+  MakeLink is a core pmwiki function defined in pmwiki.php
  */
 function BuildGroupList($list) {
     $out = '';
@@ -186,7 +196,7 @@ function BuildGroupList($list) {
 }
 
 
-
+# I'm feeling a bit foolish, as I don't remember what this code is for.
 Markup("bgroupbegin",">links","/\\(:bgroupbegin (\\w+):\\)/e",
        "Keep('<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">$1<b class=\"caret\"></b></a><ul class=\"dropdown-menu\">')");
 Markup("bgroupend",">links","/\\(:bgroupend:\\)/",
