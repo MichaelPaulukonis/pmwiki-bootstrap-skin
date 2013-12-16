@@ -1,4 +1,6 @@
 node_modules
+test/simpletest/
+test/wiki.d/
 config.js
 *.zip
 *RecentChanges

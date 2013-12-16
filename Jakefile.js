@@ -152,3 +152,15 @@ task('bump', function(releaseType) {
         complete();
     });
 }, true);
+
+
+// TODO: make build dependent upon successful test-run
+// NOTE: file-names are likely temporary.
+desc('Run php tests');
+task('phptest', function() {
+    var cmd = 'php ' + './test/test.php';
+    console.log(cmd);
+    jake.exec(cmd, {printStdout: true}, function() {
+        console.log('complete!');
+        });
+}, true);
