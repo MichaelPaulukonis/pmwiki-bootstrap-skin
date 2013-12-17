@@ -38,7 +38,7 @@ array_splice($WikiLibDirs, $where, 0,
 # add stylechange.php for cookie setting code if set.
 /* if ($EnableStyleOptions == 1)  */
 # disabling this causes a ton of issues - need to revisit to see what should be where....
-include_once("$SkinDir/themechange.php");
+include_once("themechange.php");
 
 ## required for apply-actions
 $WikiStyleApply['link'] = 'a';  #allows A to be labelled with class attributes
