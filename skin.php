@@ -149,6 +149,7 @@ function GroupDropdownMenu($inp) {
 function GetWikiPages($pattern, $exclude) {
 
     $pagelist = ListPages($pattern);
+
     $grouplist = array();
     foreach($pagelist as $page) {
         list ($group, $name) = explode('.',$page);
@@ -196,8 +197,4 @@ function BuildGroupList($list) {
 }
 
 
-# I'm feeling a bit foolish, as I don't remember what this code is for.
-Markup("bgroupbegin",">links","/\\(:bgroupbegin (\\w+):\\)/e",
-       "Keep('<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">$1<b class=\"caret\"></b></a><ul class=\"dropdown-menu\">')");
-Markup("bgroupend",">links","/\\(:bgroupend:\\)/",
-       Keep('</ul></li>'));
+include_once("$SkinDir/dropdown.php");
