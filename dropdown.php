@@ -34,18 +34,24 @@ Markup("bdropdown",">links","/\\(:bdropdown\s*(.*?)\s*:\\)/e",
 */
 function BDropdownMenu($inp) {
 
+    sms('inside of markup');
+
     $defaults = array('title'=>'Dropdown');
     $args = array_merge($defaults, ParseArgs($inp));
 
-    $inline_code_begin = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".$args['title']."<b class='caret'></b></a><ul class='dropdown-menu'>";
-    $inline_code_end = "</ul></li>";
+    $inline_code_begin = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>"
+        .$args['title']."<b class='caret'></b></a><ul class='dropdown-menu'>";
+    # close "<ul class='dropdown-menu'>"
+    $inline_code_end = "</ul></li><!-- end dropdown -->";
 
     // if we're using MakePageList, we have to pass ALL the opts along...
     // in this case, named $args
     $group_list = BGetWikiPages($args);
     $formatted_list = BBuildGroupList($group_list);
 
-    return Keep($inline_code_begin.$formatted_list.$inline_code_end);
+    $html = $inline_code_begin.$formatted_list.$inline_code_end;
+    sms(str_replace("<", "&lt;", $html));
+    return Keep($html);
 
 }
 
@@ -73,11 +79,14 @@ function BGetWikiPages($args) {
 /*
   HTML based on code from http://scottgalloway.blogspot.com/2012/08/twitter-bootstrap-nested-nav-lists.html
   MakeLink is a core pmwiki function defined in pmwiki.php
+  TODO is there a smarter PHP library/function for generating HTML tags?
  */
 function BBuildGroupList($list) {
     $out = '';
 
     $group = '';
+    sms($list);
+    sms('here we are!');
     foreach($list as $page) {
         # if group name is empty or != previous group name, capture it and start new unordered list
         # TODO: if only one group is present (or some param indicated to do so)
@@ -85,8 +94,11 @@ function BBuildGroupList($list) {
         preg_match('/\((.*?).\)/', $page, $matches);
         if ($group == '' || $group != $matches[1]) {
 
+            sms('inside of match');
+
             # only close if a group has been set
             if ($group != '') {
+                sms("closing for new group '$group'");
                 $out .= "</ul></li>";
             }
 
@@ -101,7 +113,22 @@ function BBuildGroupList($list) {
         $out .= '</li>';
     }
 
-    $out .= "</ul></li>";
+    /*
+      if ZERO PAGES have been returned, we've got no markup.
+      output something that makes sense
+
+      NOTE: this is preliminary, and not nesc. best solution.
+     */
+    if ($out != '') {
+        // normal close
+        $out .= "</ul></li>";
+    } else {
+        /* no pages/groups to output
+           no UL outputted, because opening-tag only generated
+           when new ul class=dropdown-menu created
+        */
+        $out .= "<li class='nav nav-list'>(no pages available)</li>";
+    }
 
     return $out;
 }
