@@ -1,6 +1,6 @@
 <?php if (!defined('PmWiki')) exit();
-/*  Copyright 2013 Michael Paulukonis
-    This file is bootstrap-fluid.php; part of the bootstrap skin for pmwiki 2
+/*  Copyright 2014 Michael Paulukonis
+    This file is dropdown.php; part of the bootstrap skin for pmwiki 2
     you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published
     by the Free Software Foundation; either version 2 of the License, or
@@ -11,15 +11,27 @@
 /* Dropdowns
    Used in menu sections (navbar, etc). To use, insert:
 
-   (:bgroups title=Groups pattern=pattern exclude=glob:)
+   (:bdropdown title=Groups <other params> :)
 
-   where title is the setting for the dropdown group.
+   where title is the setting for the dropdown group, and <other params> are standard pagelist parameters
 
-   ganked from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
+   NOTE: proper display requires the containing list (ul or ol) to have the class "nav" applied
+         this must be applied to the first item on the list, if it is not the dropdown
+         AFAIK, this cannot be done programmatically from within this markup code
+
+   NOTE: use of multiple link= targets requires the PageListMultiTargets recipe
+         http://www.pmwiki.org/wiki/Cookbook/PageListMultiTargets
+         currently this is included via config.php
+         Should include it here w/in recipe
+
+   Inspired by code from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
 */
 Markup("bdropdown",">links","/\\(:bdropdown\s*(.*?)\s*:\\)/e",
        "BDropdownMenu('$1')");
 
+/* NOTE: the "B" prefix is temporary, as previous markup uses the same names (without "B" prefix)
+         Once that code is removed, this should be updated to remove the "B"
+*/
 function BDropdownMenu($inp) {
 
     $defaults = array('title'=>'Dropdown');
@@ -37,20 +49,23 @@ function BDropdownMenu($inp) {
 
 }
 
-// $args is the entire opts string pagges along to MakePageList, generally
-// there's a handful of extras that we use for other purposes.
-// MakePageList will ignore them (if we don't use its param-list)
+/* $args is the entire opts string pagges along to MakePageList, generally
+   there's a handful of extras that we use for other purposes.
+   MakePageList will ignore them (if we don't use its param-list)
+   TODO if only one group is returned, or a parameter indicating "FLAT" is provided
+        the list should be built "flat" => one list, without sub-lists
+*/
 function BGetWikiPages($args) {
 
-    $pl = MakePageList('', $args);
-    $gl = array();
-    foreach($pl as $page) {
+    $pages = MakePageList('', $args);
+    $grouplist = array();
+    foreach($pages as $page) {
         list ($group, $name) = explode('.',$page['name']);
-        $gl[] = "($group.)$name";
+        $grouplist[] = "($group.)$name";
     }
 
-    sort($gl);
-    return $gl;
+    sort($grouplist);
+    return $grouplist;
 
 }
 

@@ -113,6 +113,9 @@ function HideLeftBoot() {
    where title is the setting for the dropdown group.
 
    ganked from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
+
+   TODO this markup has been superceeded by "(:bdropdown :)" markup in dropdown.php file
+        being left in temporarily as updates are progressing
 */
 Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/e",
        "GroupDropdownMenu('$1')");
