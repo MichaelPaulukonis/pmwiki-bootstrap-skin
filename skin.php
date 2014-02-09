@@ -11,8 +11,10 @@
 global $RecipeInfo, $SkinName, $SkinRecipeName, $WikiStyleApply, $PageLogoUrl,
     $HTMLHeaderFmt, $PageHeaderFmt, $PageNavStyle, $UseDarkstrapTheme, $UseFlatUI,
     $PageEditForm, $PageTextStartFmt, $BodySpan;
+
 # Some Skin-specific values
-$RecipeInfo['BootstrapSkin']['Version'] = '2013-05-20';
+## TODO auto-populate from jake task (since version is tracked there)
+$RecipeInfo['BootstrapSkin']['Version'] = '0.2.3';
 $SkinName = 'bootstrap-fluid';
 $SkinRecipeName = "BootstrapSkin";
 
