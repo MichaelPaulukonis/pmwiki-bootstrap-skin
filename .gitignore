@@ -1,7 +1,6 @@
-qnode_modules
-config.js
 *.zip
 *RecentChanges
+config.js
 css/amelia.css
 css/bootstrap-responsive.min.css
 css/bootstrap.min.css
@@ -12,3 +11,6 @@ css/journal.css
 css/slate.css
 css/spacelab.css
 img/
+node_modules
+wiki.d/.flock
+test/
