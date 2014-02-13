@@ -34,8 +34,6 @@ Markup("bdropdown",">links","/\\(:bdropdown\s*(.*?)\s*:\\)/e",
 */
 function BDropdownMenu($inp) {
 
-    sms('inside of markup');
-
     $defaults = array('title'=>'Dropdown');
     $args = array_merge($defaults, ParseArgs($inp));
 
@@ -50,7 +48,6 @@ function BDropdownMenu($inp) {
     $formatted_list = BBuildGroupList($group_list);
 
     $html = $inline_code_begin.$formatted_list.$inline_code_end;
-    sms(str_replace("<", "&lt;", $html));
     return Keep($html);
 
 }
@@ -85,8 +82,6 @@ function BBuildGroupList($list) {
     $out = '';
 
     $group = '';
-    sms($list);
-    sms('here we are!');
     foreach($list as $page) {
         # if group name is empty or != previous group name, capture it and start new unordered list
         # TODO: if only one group is present (or some param indicated to do so)
@@ -94,11 +89,8 @@ function BBuildGroupList($list) {
         preg_match('/\((.*?).\)/', $page, $matches);
         if ($group == '' || $group != $matches[1]) {
 
-            sms('inside of match');
-
             # only close if a group has been set
             if ($group != '') {
-                sms("closing for new group '$group'");
                 $out .= "</ul></li>";
             }
 
