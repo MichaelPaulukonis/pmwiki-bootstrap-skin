@@ -8,7 +8,7 @@
 **  (at your option) any later version.  See pmwiki.php for full details.
 ***********************************************************************/
 
-/** Pmwiki Kit: only the funcional styling rules are kept, elements such
+/** Pmwiki Bootstrap Skin: only the functional styling rules are kept, elements such
  * as h1-6 etc. are already styled by Bootstrap, and so were removed from
  * here.
  */
@@ -17,12 +17,12 @@
 	body {
 		padding-top: 0px;
 	}
-	
-	.pull-right { 
+
+	.pull-right {
 		position:relative;
 		float: right;
 		z-index:10;
-	} 
+	}
 }
 
 @media (min-width: 980px) {
@@ -142,4 +142,11 @@
     color: #333;
     float: none;
     line-height: 21px;
+}
+
+
+.guibutton {
+    /* margin: 0 2px 2px 0; */
+    margin-right: 2px;
+    margin-bottom: 2px;
 }

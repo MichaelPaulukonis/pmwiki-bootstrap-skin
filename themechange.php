@@ -16,7 +16,7 @@
  */
 
 global $Now, $CookiePrefix, $BootstrapThemeCookie, $BootstrapCoreCookie, $BootstrapNavbarCookie,
-        $BootstrapTheme, $BootstrapCore, $BootstrapNav;
+    $BootstrapTheme, $BootstrapCore, $BootstrapNav;
 
 # set cookie expire time (default 1 year)
 SDV($BootstrapCookieExpires,$Now+60*60*24*365);
