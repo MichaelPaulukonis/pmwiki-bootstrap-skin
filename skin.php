@@ -10,9 +10,10 @@
 
 global $RecipeInfo, $SkinName, $SkinRecipeName, $WikiStyleApply, $PageLogoUrl,
     $HTMLHeaderFmt, $PageHeaderFmt, $PageNavStyle, $UseDarkstrapTheme, $UseFlatUI,
-    $PageEditForm, $PageTextStartFmt, $BodySpan;
+    $PageEditForm, $PageTextStartFmt, $BodySpan, $BootBodyClass;
 # Some Skin-specific values
-$RecipeInfo['BootstrapSkin']['Version'] = '2013-05-20';
+## TODO auto-populate from jake task (since version is tracked there)
+$RecipeInfo['BootstrapSkin']['Version'] = '0.2.4';
 $SkinName = 'bootstrap-fluid';
 $SkinRecipeName = "BootstrapSkin";
 
@@ -105,6 +106,29 @@ function HideLeftBoot() {
 }
 
 
+
+# if (:boostrap-center-main:) markup is present, mainbody will be no class
+# and BootBodyClass will be container, instead of row-fluid
+# otherwise, span9/12 is required for content to appear to the right of the left-bar.
+if (! isset($BootBodyClass)) {
+   $BootBodyClass = "row-fluid";
+}
+
+Markup('bootstrap-center-main', 'directives',
+       '/\\(:bootstrap-center-main:\\)/ei',
+       "BootstrapCenterMain()");   
+
+function BootstrapCenterMain() {
+
+	global $BodySpan, $BootBodyClass;
+	$BodySpan = "";
+	$BootBodyClass = "container";
+	
+	SetTmplDisplay('PageLeftFmt', 0);
+
+}	   
+
+
 /* Dropdowns
    Used in menu sections (navbar, etc). To use, insert:
 
@@ -113,6 +137,9 @@ function HideLeftBoot() {
    where title is the setting for the dropdown group.
 
    ganked from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
+
+   TODO this markup has been superceeded by "(:bdropdown :)" markup in dropdown.php file
+        being left in temporarily as updates are progressing
 */
 Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/e",
        "GroupDropdownMenu('$1')");
@@ -196,8 +223,4 @@ function BuildGroupList($list) {
 }
 
 
-# I'm feeling a bit foolish, as I don't remember what this code is for.
-Markup("bgroupbegin",">links","/\\(:bgroupbegin (\\w+):\\)/e",
-       "Keep('<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">$1<b class=\"caret\"></b></a><ul class=\"dropdown-menu\">')");
-Markup("bgroupend",">links","/\\(:bgroupend:\\)/",
-       Keep('</ul></li>'));
+include_once("$SkinDir/dropdown.php");

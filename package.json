@@ -3,12 +3,12 @@
   "description": "a bootstrap-based skin for the PmWiki CMS",
   "author": "MichaelPaulukonis (http://michaelpaulukonis.com)",
   "dependencies": {
-    "adm-zip": "0.4.2",
+    "adm-zip": "0.4.4",
     "open": "latest",
     "releasetools": "0.4.1"
   },
   "engine": {
     "node": "0.8.x"
   },
-  "version": "0.2.2"
+  "version": "0.2.4"
 }
