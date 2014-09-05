@@ -224,3 +224,73 @@ function BuildGroupList($list) {
 
 
 include_once("$SkinDir/dropdown.php");
+
+global $BootButtons;
+
+SDVA($BootButtons, array(
+  'em'       => array(100, "''", "''", '$[Emphasized]',
+                  'icon-italic',
+                  '$[ak_em]'),
+  'strong'   => array(110, "'''", "'''", '$[Strong]',
+                  'icon-bold',
+                  '$[ak_strong]'),
+  /* 'pagelink' => array(200, '[[', ']]', '$[Page link]', */
+  /*                 '$GUIButtonDirUrlFmt/pagelink.gif"$[Link to internal page]"'), */
+  /* 'extlink'  => array(210, '[[', ']]', 'http:// | $[link text]', */
+  /*                 '$GUIButtonDirUrlFmt/extlink.gif"$[Link to external page]"'), */
+  'big'      => array(300, "'+", "+'", '$[Big text]',
+                  'icon-fullscreen'),
+  /* 'small'    => array(310, "'-", "-'", '$[Small text]', */
+  /*                 '$GUIButtonDirUrlFmt/small.gif"$[Small text]"'), */
+  'sup'      => array(320, "'^", "^'", '$[Superscript]',
+                  'icon-arrow-up'),
+  'sub'      => array(330, "'_", "_'", '$[Subscript]',
+                  'icon-arrow-down'),
+  /* 'h2'       => array(400, '\\n!! ', '\\n', '$[Heading]', */
+  /*                 '$GUIButtonDirUrlFmt/h.gif"$[Heading]"'), */
+  'center'   => array(410, '%center%', '', '',
+                  'icon-align-center')));
+
+/* sms($BootButtons); */
+#sms('after the echo');
+
+Markup('e_bootbuttons', 'directives',
+  '/\\(:e_bootbuttons:\\)/e',
+  "Keep(FmtPageName(BootButtonCode(\$pagename), \$pagename))");
+
+function BootButtonCode($pagename) {
+  global $BootButtons;
+  $cmpfn = create_function('$a,$b', 'return $a[0]-$b[0];');
+  /* sms('inside of BootButtonCode'); */
+  /* sms('Buttons: '.$BootButtons); */
+  usort($BootButtons, $cmpfn);
+  $out = "<script type='text/javascript'><!--\n";
+  foreach ($BootButtons as $k => $g) {
+    if (!$g) continue;
+    @list($when, $mopen, $mclose, $mtext, $class, $mkey) = $g;
+    // I will confess to not completely understanding what was happening, here
+    // I replaced "$tag" in the above line with "$class"
+    // which better replaced what I'm doing....
+    /* if ($tag{0} == '<') { */
+    /*     $out .= "document.write(\"$tag\");\n"; */
+    /*     continue; */
+    /* } */
+    /* if (preg_match('/^(.*\\.(gif|jpg|png))("([^"]+)")?$/', $tag, $m)) { */
+    /*   $title = (@$m[4] > '') ? "title='{$m[4]}'" : ''; */
+    /*   /\* $tag = "<img src='{$m[1]}' $title style='border:0px;' />"; *\/ */
+    /*   $tag = "<i class='{$m[1]}'></i>"; */
+    /* } */
+    /* NOTE: label-inverse looks good for dark themes (like Darkstrap)
+       but doesn't work for light themes (like default bootstrap).
+       solution not known, so not using label-inverse for now.
+     */
+    $tag = "<span class='label guibutton'><i class='$class'></i></span>";
+    $mopen = str_replace(array('\\', "'"), array('\\\\', "\\\\'"), $mopen);
+    $mclose = str_replace(array('\\', "'"), array('\\\\', "\\\\'"), $mclose);
+    $mtext = str_replace(array('\\', "'"), array('\\\\', "\\\\'"), $mtext);
+    $out .=
+      "insButton(\"$mopen\", \"$mclose\", '$mtext', \"$tag\", \"$mkey\");\n";
+  }
+  $out .= '//--></script>';
+  return $out;
+}
