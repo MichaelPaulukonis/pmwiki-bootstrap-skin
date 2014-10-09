@@ -26,7 +26,7 @@
 
    Inspired by code from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
 */
-Markup("bdropdown",">links","/\\(:bdropdown\s*(.*?)\s*:\\)/e",
+Markup("bdropdown",">links","/\\(:bdropdown\s*(.*?)\s*:\\)/",
        "BDropdownMenu('$1')");
 
 /* NOTE: the "B" prefix is temporary, as previous markup uses the same names (without "B" prefix)
@@ -49,7 +49,7 @@ function BDropdownMenu($inp) {
 
 }
 
-/* $args is the entire opts string passed along to \scripts\pageslist.php->MakePageList, 
+/* $args is the entire opts string passed along to \scripts\pageslist.php->MakePageList,
    generally there's a handful of extras that we use for other purposes.
    MakePageList will ignore them (if we don't use its param-list)
    TODO if only one group is returned, or a parameter indicating "FLAT" is provided
