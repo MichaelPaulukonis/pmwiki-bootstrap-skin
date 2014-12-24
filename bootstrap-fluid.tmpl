@@ -30,84 +30,76 @@
 <body>
   <!--PageHeaderFmt-->
   $PageNavStyle
-  <!-- Fixed navbar -->
-    <nav class='navbar navbar-default navbar-fixed-top'>
-      <div class='container'>
-        <div class='navbar-header'>
-          <button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
-            <span class='sr-only'>Toggle navigation</span>
-            <span class='icon-bar'></span>
-            <span class='icon-bar'></span>
-            <span class='icon-bar'></span>
-          </button>
-          <a id='wikilogo' class='navbar-brand' href='{$ScriptUrl}'>$WikiTitle</a>
-        </div>
-        <div class='pull-right'>
-          <form class='navbar-search pull-left' action='{$ScriptUrl}'>
-            <span class='headnav'><a href='{$ScriptUrl}/Site/AllRecentChanges' accesskey='$[ak_recentchanges]'>$[Recent Changes]</a> -</span>
-            <input type='text' name='q' value='' class='search-query md-col-2' placeholder='Search' />
-            <button type='submit' class='btn'>$[Go]</button>
-            <input type='hidden' name='n' value='{$FullName}' />
-            <input type='hidden' name='action' value='search' />
-          </form>
-        </div>
-
-        <div id='navbar' class='navbar-collapse collapse'>
-          <!--wiki:$SiteGroup.BootstrapSiteHeader-->
-        </div><!--/.nav-collapse -->
+    <div class='container'>
+      <div class='navbar-header'>
+        <button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
+          <span class='sr-only'>Toggle navigation</span>
+          <span class='icon-bar'></span>
+          <span class='icon-bar'></span>
+          <span class='icon-bar'></span>
+        </button>
+        <a id='wikilogo' class='navbar-brand' href='{$ScriptUrl}'>$WikiTitle</a>
       </div>
-    </nav>
+      <div class='pull-right'>
+        <form class='navbar-search pull-left' action='{$ScriptUrl}'>
+          <span class='headnav'><a href='{$ScriptUrl}/Site/AllRecentChanges' accesskey='$[ak_recentchanges]'>$[Recent Changes]</a> -</span>
+          <input type='text' name='q' value='' class='search-query md-col-2' placeholder='Search' />
+          <button type='submit' class='btn'>$[Go]</button>
+          <input type='hidden' name='n' value='{$FullName}' />
+          <input type='hidden' name='action' value='search' />
+        </form>
+      </div>
 
-  <div class='navbar-inner'>
-
+      <div id='navbar' class='navbar-collapse collapse'>
+        <!--wiki:$SiteGroup.BootstrapSiteHeader-->
+      </div><!--/.nav-collapse -->
     </div>
-  </div>
-</div> <!-- this div is created by a template variable above. -->
+  </nav>
 
-<!--/PageHeaderFmt-->
-<div id='wikimid' class='container-fluid'>
-  <div id='bootbody' class='$BootBodyClass'>
-    <!--PageLeftFmt-->
-    <div id='wikileft' class='$SideSpan'>
-      <div class='well sidebar-nav'>
-        <!--wiki:{$Group}.SideBar {$SiteGroup}.SideBar-->
-      </div><!--/.well -->
-    </div><!--/span-->
-    <!--/PageLeftFmt-->
+  <!--/PageHeaderFmt-->
+  <div id='wikimid' class='container$SkinFluid'>
+    <div id='bootbody' class='$BootBodyClass'>
+      <!--PageLeftFmt-->
+      <div id='wikileft' class='$SideSpan'>
+        <div class='well sidebar-nav'>
+          <!--wiki:{$Group}.SideBar {$SiteGroup}.SideBar-->
+        </div><!--/.well -->
+      </div><!--/span-->
+      <!--/PageLeftFmt-->
+  
+      <div id='wikibody' class='$BodySpan'>
+        <!--PageActionFmt-->
+        <div id='wikicmds'>
+          <!--wiki:{$Group}.PageActions {$SiteGroup}.PageActions-->
+        </div>
+        <!--PageTitleFmt-->
+        <div id='wikititle' class='page-header'>
+          <h1>{$Title} <small>{<a href='{$ScriptUrl}/{$Group}'>{$Group}</a>}</small> </h1>
+        </div>
+        <!--PageText-->
+  
+      </div><!--/span-->
+    </div><!--/bootbody -->
+  
+    <!--PageFooterFmt-->
+  
+    <hr/>
 
-    <div id='wikibody' class='$BodySpan'>
-      <!--PageActionFmt-->
-      <div id='wikicmds'>
-        <!--wiki:{$Group}.PageActions {$SiteGroup}.PageActions-->
+    <footer>
+      <div id='wikifoot'>
+        <div class='footnav'>
+          <a rel='nofollow' href='{$PageUrl}?action=edit'>$[Edit]</a> -
+          <a rel='nofollow' href='{$PageUrl}?action=diff'>$[History]</a> -
+          <a rel='nofollow' href='{$PageUrl}?action=print' target='_blank'>$[Print]</a> -
+          <a href='{$ScriptUrl}/$[{$Group}/RecentChanges]'>$[Recent Changes]</a> -
+          <a href='{$ScriptUrl}/$[{$SiteGroup}/Search]'>$[Search]</a>
+        </div>
+        <div class='lastmod'>$[Page last modified on {$LastModified}]</div>
       </div>
-      <!--PageTitleFmt-->
-      <div id='wikititle' class='page-header'>
-        <h1>{$Title} <small>{<a href='{$ScriptUrl}/{$Group}'>{$Group}</a>}</small> </h1>
-      </div>
-      <!--PageText-->
-
-    </div><!--/span-->
-  </div><!--/bootbody -->
-
-  <!--PageFooterFmt-->
-
-  <hr/>
-
-  <footer>
-    <div id='wikifoot'>
-      <div class='footnav'>
-        <a rel='nofollow' href='{$PageUrl}?action=edit'>$[Edit]</a> -
-        <a rel='nofollow' href='{$PageUrl}?action=diff'>$[History]</a> -
-        <a rel='nofollow' href='{$PageUrl}?action=print' target='_blank'>$[Print]</a> -
-        <a href='{$ScriptUrl}/$[{$Group}/RecentChanges]'>$[Recent Changes]</a> -
-        <a href='{$ScriptUrl}/$[{$SiteGroup}/Search]'>$[Search]</a>
-      </div>
-      <div class='lastmod'>$[Page last modified on {$LastModified}]</div>
-    </div>
-  </footer>
-  <!--/PageFooterFmt-->
-
-</div><!--/.fluid-container-->
+    </footer>
+    <!--/PageFooterFmt-->
+  
+  </div><!--/.fluid-container-->
 
 <!-- Le javascript
      ================================================== -->

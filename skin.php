@@ -89,8 +89,8 @@ function BootstrapIcon($args) {
 # if (:noleft:) markup is present, mainbody will be span12
 # otherwise, default to span9 (ie sidebar is span3)
 if (! isset($BodySpan)) {
-   $BodySpan = "col-md-9";
-   $SideSpan = "col-md-3";
+   $BodySpan = "col-md-9 col-sm-6 col-xs-12";
+   $SideSpan = "col-md-3 col-sm-6 col-xs-12";
 }
 
 Markup_e('noleft', 'directives',
