@@ -95,9 +95,7 @@ if ($core == 'compass') {
         $HTMLHeaderFmt['core-css'] =
                 "<link href='$SkinDirUrl/css/screen.css' rel='stylesheet'>";
 } else {
-        $HTMLHeaderFmt['core-css'] =
-                "<link href='$SkinDirUrl/css/bootstrap.css' rel='stylesheet'>
-         <link href='$SkinDirUrl/css/bootstrap-responsive.css' rel='stylesheet'>";
+        $HTMLHeaderFmt['core-css'] = "<link href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css' rel='stylesheet'>";
 }
 
 if ($theme == 'flatui') {
