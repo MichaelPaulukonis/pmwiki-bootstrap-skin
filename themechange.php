@@ -142,7 +142,7 @@ if ($theme == 'flatui') {
 
 
 #$PageNavStyle = "<nav id='wikihead' class='navbar navbar-default navbar-fixed-top'>";
-$PageNavStyle = "<nav id='wikihead' class='navbar $navbar navbar-fixed-top'>";
+$PageNavStyle = "<nav id='wikihead' class='navbar navbar-dausha navbar-fixed-top'>";
         #"<div id='wikihead' class='navbar $navbar navbar-fixed-top'>";
 
 $HTMLHeaderFmt['end-css'] =

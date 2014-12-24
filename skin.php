@@ -90,6 +90,8 @@ function BootstrapIcon($args) {
 # otherwise, default to span9 (ie sidebar is span3)
 if (! isset($BodySpan)) {
    $BodySpan = "col-md-9 col-sm-6 col-xs-12";
+}
+if (! isset($SideSpan)) {
    $SideSpan = "col-md-3 col-sm-6 col-xs-12";
 }
 
