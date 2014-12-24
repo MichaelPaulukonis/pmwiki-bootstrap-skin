@@ -46,8 +46,8 @@ $WikiStyleApply['link'] = 'a';  #allows A to be labelled with class attributes
 
 # Markup() is a core pmwiki function defined in pmwiki.php
 # Keep() is a core pmwiki function defined in pmwiki.php
-Markup('button', 'links',
-           '/\\(:button(\\s+.*?)?:\\)/ei',
+Markup_e('button', 'links',
+           '/\\(:button(\\s+.*?)?:\\)/i',
            "Keep(BootstrapButton(PSS('$1 ')), 'L')");
 
 # ParseArgs() is a core pmwiki function defined in pmwiki.php
@@ -74,8 +74,9 @@ function BootstrapButton($args) {
 
 }
 
-Markup('icon', 'inline',
-       '/\\(:icon(\\s+.*?)?:\\)/ei',
+#preg_replace_callback
+Markup_e('icon', 'inline',
+       '/\\(:icon(\\s+.*?)?:\\)/i',
        "BootstrapIcon(PSS('$1 '))");
 
 function BootstrapIcon($args) {
@@ -91,8 +92,8 @@ if (! isset($BodySpan)) {
    $BodySpan = "span9";
 }
 
-Markup('noleft', 'directives',
-       '/\\(:noleft:\\)/ei',
+Markup_e('noleft', 'directives',
+       '/\\(:noleft:\\)/i',
        "HideLeftBoot()");
 
 # SetTmplDisplay() is a core pmwiki function defined in pmwiki.php
@@ -114,8 +115,8 @@ if (! isset($BootBodyClass)) {
    $BootBodyClass = "row-fluid";
 }
 
-Markup('bootstrap-center-main', 'directives',
-       '/\\(:bootstrap-center-main:\\)/ei',
+Markup_e('bootstrap-center-main', 'directives',
+       '/\\(:bootstrap-center-main:\\)/i',
        "BootstrapCenterMain()");   
 
 function BootstrapCenterMain() {
@@ -141,7 +142,7 @@ function BootstrapCenterMain() {
    TODO this markup has been superceeded by "(:bdropdown :)" markup in dropdown.php file
         being left in temporarily as updates are progressing
 */
-Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/e",
+Markup_e("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/",
        "GroupDropdownMenu('$1')");
 
 function GroupDropdownMenu($inp) {
@@ -254,8 +255,8 @@ SDVA($BootButtons, array(
 /* sms($BootButtons); */
 #sms('after the echo');
 
-Markup('e_bootbuttons', 'directives',
-  '/\\(:e_bootbuttons:\\)/e',
+Markup_e('e_bootbuttons', 'directives',
+  '/\\(:e_bootbuttons:\\)/',
   "Keep(FmtPageName(BootButtonCode(\$pagename), \$pagename))");
 
 function BootButtonCode($pagename) {
