@@ -65,10 +65,13 @@
         <div id='wikicmds'>
           <!--wiki:{$Group}.PageActions {$SiteGroup}.PageActions-->
         </div>
+	<ol class="breadcrumb">
+	  <li><a href="$ScriptUrl">Home</a></li>
+	  <li><a href="$ScriptUrl/$Group">{$Group}</a></li>
+	  <li class="active">{$Titlespaced}</li>
+	</ol>
         <!--PageTitleFmt-->
-        <div id='wikititle' class='page-header'>
-          <h1>{$Titlespaced} <small>{<a href='{$ScriptUrl}/{$Group}'>{$Group}</a>}</small> </h1>
-        </div>
+        <h1 class='page-header' id='wikititle'>{$Titlespaced}</h1>
         <!--PageText-->
   
       </div><!--/span-->

@@ -1,15 +1,21 @@
-version=pmwiki-2.2.51 ordered=1 urlencoded=1
-agent=Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0
-author=MichaelPaulukonis
-charset=UTF-8
+version=pmwiki-2.2.70 ordered=1 urlencoded=1
+agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36
+author=
+charset=ISO-8859-1
 csum=
 ctime=1369969634
-host=127.0.0.1
+host=69.140.5.101
 name=Bootstrap.EditForm
-rev=7
+rev=9
 targets=
-text=(:Summary:contains the edit page layout form:)%0a!! $[Editing {*$FullName}] %25block class=wikiaction%25%0a(:messages:)%0a(:div id='wikiedit':)%0a(:input e_form:)[[#top]](:e_guibuttons:)\\%0a(:input e_textarea:)\\%0a$[Summary]: (:input e_changesummary:)\\%0a$[Author]: (:input e_author:) (:input e_minorcheckbox:) $[This is a minor edit]\\%0a(:input e_savebutton class="btn":) (:input e_savedraftbutton class="btn":) (:input e_saveeditbutton class="btn":) (:input e_previewbutton class="btn":) (:input e_cancelbutton class="btn btn-danger":)%0a(:input end:)%0a(:divend:)%0a(:include Bootstra[/EditQuickReference:)%0a(:if e_preview:)%0a!! $[Preview {*$FullName}]%0a'''$[Page is unsaved]'''%0a(:e_preview:)%0a----%0a'''$[End of preview -- remember to save]'''\\%0a[[#top | $[Top] ]]%0a(:ifend:)%0a
-time=1370003110
+text=(:Summary:contains the edit page layout form:)%0a!! $[Editing {*$FullName}] %25block class=wikiaction%25%0a(:messages:)%0a(:div id='wikiedit':)%0a(:input e_form:)[[#top]](:e_guibuttons:)\\%0a(:input e_textarea:)\\%0a$[Summary]: (:input e_changesummary:)\\%0a$[Author]: (:input e_author:) (:input e_minorcheckbox:) $[This is a minor edit]\\%0a(:input e_savebutton class="btn btn-primary":) (:input e_savedraftbutton class="btn btn-default":) (:input e_saveeditbutton class="btn btn-primary":) (:input e_previewbutton class="btn btn-warning":) (:input e_cancelbutton class="btn btn-danger":)%0a(:input end:)%0a(:divend:)%0a(:include Bootstra[/EditQuickReference:)%0a(:if e_preview:)%0a!! $[Preview {*$FullName}]%0a'''$[Page is unsaved]'''%0a(:e_preview:)%0a----%0a'''$[End of preview -- remember to save]'''\\%0a[[#top | $[Top] ]]%0a(:ifend:)%0a
+time=1419465021
+author:1419465021=
+diff:1419465021:1419464934:=9c9%0a%3c (:input e_savebutton class="btn btn-primary":) (:input e_savedraftbutton class="btn btn-default":) (:input e_saveeditbutton class="btn btn-primary":) (:input e_previewbutton class="btn btn-warning":) (:input e_cancelbutton class="btn btn-danger":)%0a---%0a> (:input e_savebutton class="btn":) (:input e_savedraftbutton class="btn btn-primary":) (:input e_saveeditbutton class="btn":) (:input e_previewbutton class="btn":) (:input e_cancelbutton class="btn btn-danger":)%0a
+host:1419465021=69.140.5.101
+author:1419464934=
+diff:1419464934:1370003110:=9c9%0a%3c (:input e_savebutton class="btn":) (:input e_savedraftbutton class="btn btn-primary":) (:input e_saveeditbutton class="btn":) (:input e_previewbutton class="btn":) (:input e_cancelbutton class="btn btn-danger":)%0a---%0a> (:input e_savebutton class="btn":) (:input e_savedraftbutton class="btn":) (:input e_saveeditbutton class="btn":) (:input e_previewbutton class="btn":) (:input e_cancelbutton class="btn btn-danger":)%0a
+host:1419464934=69.140.5.101
 author:1370003110=MichaelPaulukonis
 diff:1370003110:1369970261:=12c12%0a%3c (:include Bootstra[/EditQuickReference:)%0a---%0a> (:include $[{$SiteGroup}/EditQuickReference]:)%0a
 host:1370003110=127.0.0.1
