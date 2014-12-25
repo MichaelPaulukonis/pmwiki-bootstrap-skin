@@ -80,11 +80,11 @@ if (isset($_GET['setnavbar'])) {
 }
 if (isset($_GET['navbar'])) {
         $navbar = $_GET['navbar'];
-        $navbar = ($navbar == 'inverse' ? 'navbar-inverse' : '');
+        $navbar = ($navbar == 'inverse' ? 'navbar-inverse' : 'navbar-default');
 }
 if (! isset($navbar)) {
         $navbar = $BootstrapNavbar;
-        $navbar = ($navbar == 'inverse' ? 'navbar-inverse' : '');
+        $navbar = ($navbar == 'inverse' ? 'navbar-inverse' : 'navbar-default');
 }
 
 
@@ -95,9 +95,7 @@ if ($core == 'compass') {
         $HTMLHeaderFmt['core-css'] =
                 "<link href='$SkinDirUrl/css/screen.css' rel='stylesheet'>";
 } else {
-        $HTMLHeaderFmt['core-css'] =
-                "<link href='$SkinDirUrl/css/bootstrap.css' rel='stylesheet'>
-         <link href='$SkinDirUrl/css/bootstrap-responsive.css' rel='stylesheet'>";
+        $HTMLHeaderFmt['core-css'] = "<link href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css' rel='stylesheet'>";
 }
 
 if ($theme == 'flatui') {
@@ -110,7 +108,7 @@ if ($theme == 'flatui') {
 
         $HTMLHeaderFmt['option-css'] = "";
 
-        if (! isset($navbar)) $navbar = '';
+        if (! isset($navbar)) $navbar = 'navbar-default';
 
 } else {
 
@@ -138,13 +136,14 @@ if ($theme == 'flatui') {
             $HTMLHeaderFmt['option-css2'] = "";
         }
 
-        if (! isset($navbar)) $navbar = '';
+        if (! isset($navbar)) $navbar = 'navbar-default';
 
 }
 
 
-$PageNavStyle =
-        "<div id='wikihead' class='navbar $navbar navbar-fixed-top'>";
+#$PageNavStyle = "<nav id='wikihead' class='navbar navbar-default navbar-fixed-top'>";
+$PageNavStyle = "<nav id='wikihead' class='navbar navbar-dausha navbar-fixed-top'>";
+        #"<div id='wikihead' class='navbar $navbar navbar-fixed-top'>";
 
 $HTMLHeaderFmt['end-css'] =
         "<link href='$SkinDirUrl/css/pmwiki.css' rel='stylesheet' />";

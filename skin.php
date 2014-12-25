@@ -10,7 +10,7 @@
 
 global $RecipeInfo, $SkinName, $SkinRecipeName, $WikiStyleApply, $PageLogoUrl,
     $HTMLHeaderFmt, $PageHeaderFmt, $PageNavStyle, $UseDarkstrapTheme, $UseFlatUI,
-    $PageEditForm, $PageTextStartFmt, $BodySpan, $BootBodyClass;
+    $PageEditForm, $PageTextStartFmt, $BodySpan, $BootBodyClass, $SideSpan;
 # Some Skin-specific values
 ## TODO auto-populate from jake task (since version is tracked there)
 $RecipeInfo['BootstrapSkin']['Version'] = '0.2.4';
@@ -46,8 +46,8 @@ $WikiStyleApply['link'] = 'a';  #allows A to be labelled with class attributes
 
 # Markup() is a core pmwiki function defined in pmwiki.php
 # Keep() is a core pmwiki function defined in pmwiki.php
-Markup('button', 'links',
-           '/\\(:button(\\s+.*?)?:\\)/ei',
+Markup_e('button', 'links',
+           '/\\(:button(\\s+.*?)?:\\)/i',
            "Keep(BootstrapButton(PSS('$1 ')), 'L')");
 
 # ParseArgs() is a core pmwiki function defined in pmwiki.php
@@ -74,8 +74,9 @@ function BootstrapButton($args) {
 
 }
 
-Markup('icon', 'inline',
-       '/\\(:icon(\\s+.*?)?:\\)/ei',
+#preg_replace_callback
+Markup_e('icon', 'inline',
+       '/\\(:icon(\\s+.*?)?:\\)/i',
        "BootstrapIcon(PSS('$1 '))");
 
 function BootstrapIcon($args) {
@@ -88,18 +89,21 @@ function BootstrapIcon($args) {
 # if (:noleft:) markup is present, mainbody will be span12
 # otherwise, default to span9 (ie sidebar is span3)
 if (! isset($BodySpan)) {
-   $BodySpan = "span9";
+   $BodySpan = "col-md-9 col-sm-6 col-xs-12";
+}
+if (! isset($SideSpan)) {
+   $SideSpan = "col-md-3 col-sm-6 col-xs-12";
 }
 
-Markup('noleft', 'directives',
-       '/\\(:noleft:\\)/ei',
+Markup_e('noleft', 'directives',
+       '/\\(:noleft:\\)/i',
        "HideLeftBoot()");
 
 # SetTmplDisplay() is a core pmwiki function defined in pmwiki.php
 function HideLeftBoot() {
 
     global $BodySpan;
-    $BodySpan = "span12";
+    $BodySpan = "col-md-12";
 
     SetTmplDisplay('PageLeftFmt',0);
 
@@ -111,11 +115,11 @@ function HideLeftBoot() {
 # and BootBodyClass will be container, instead of row-fluid
 # otherwise, span9/12 is required for content to appear to the right of the left-bar.
 if (! isset($BootBodyClass)) {
-   $BootBodyClass = "row-fluid";
+   $BootBodyClass = "row";
 }
 
-Markup('bootstrap-center-main', 'directives',
-       '/\\(:bootstrap-center-main:\\)/ei',
+Markup_e('bootstrap-center-main', 'directives',
+       '/\\(:bootstrap-center-main:\\)/i',
        "BootstrapCenterMain()");   
 
 function BootstrapCenterMain() {
@@ -141,7 +145,7 @@ function BootstrapCenterMain() {
    TODO this markup has been superceeded by "(:bdropdown :)" markup in dropdown.php file
         being left in temporarily as updates are progressing
 */
-Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/e",
+Markup_e("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/",
        "GroupDropdownMenu('$1')");
 
 function GroupDropdownMenu($inp) {
@@ -229,33 +233,33 @@ global $BootButtons;
 
 SDVA($BootButtons, array(
   'em'       => array(100, "''", "''", '$[Emphasized]',
-                  'icon-italic',
+                  'glyphicon glyphicon-italic',
                   '$[ak_em]'),
   'strong'   => array(110, "'''", "'''", '$[Strong]',
-                  'icon-bold',
+                  'glyphicon glyphicon-bold',
                   '$[ak_strong]'),
   /* 'pagelink' => array(200, '[[', ']]', '$[Page link]', */
   /*                 '$GUIButtonDirUrlFmt/pagelink.gif"$[Link to internal page]"'), */
   /* 'extlink'  => array(210, '[[', ']]', 'http:// | $[link text]', */
   /*                 '$GUIButtonDirUrlFmt/extlink.gif"$[Link to external page]"'), */
   'big'      => array(300, "'+", "+'", '$[Big text]',
-                  'icon-fullscreen'),
+                  'glyphicon glyphicon-fullscreen'),
   /* 'small'    => array(310, "'-", "-'", '$[Small text]', */
   /*                 '$GUIButtonDirUrlFmt/small.gif"$[Small text]"'), */
   'sup'      => array(320, "'^", "^'", '$[Superscript]',
-                  'icon-arrow-up'),
+                  'glyphicon glyphicon-arrow-up'),
   'sub'      => array(330, "'_", "_'", '$[Subscript]',
-                  'icon-arrow-down'),
+                  'glyphicon glyphicon-arrow-down'),
   /* 'h2'       => array(400, '\\n!! ', '\\n', '$[Heading]', */
   /*                 '$GUIButtonDirUrlFmt/h.gif"$[Heading]"'), */
   'center'   => array(410, '%center%', '', '',
-                  'icon-align-center')));
+                  'glyphicon glyphicon-align-center')));
 
 /* sms($BootButtons); */
 #sms('after the echo');
 
-Markup('e_bootbuttons', 'directives',
-  '/\\(:e_bootbuttons:\\)/e',
+Markup_e('e_bootbuttons', 'directives',
+  '/\\(:e_bootbuttons:\\)/',
   "Keep(FmtPageName(BootButtonCode(\$pagename), \$pagename))");
 
 function BootButtonCode($pagename) {
