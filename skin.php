@@ -47,7 +47,7 @@ $WikiStyleApply['link'] = 'a';  #allows A to be labelled with class attributes
 # Markup() is a core pmwiki function defined in pmwiki.php
 # Keep() is a core pmwiki function defined in pmwiki.php
 Markup('button', 'links',
-           '/\\(:button(\\s+.*?)?:\\)/ei',
+           '/\\(:button(\\s+.*?)?:\\)/i',
            "Keep(BootstrapButton(PSS('$1 ')), 'L')");
 
 # ParseArgs() is a core pmwiki function defined in pmwiki.php
@@ -75,7 +75,7 @@ function BootstrapButton($args) {
 }
 
 Markup('icon', 'inline',
-       '/\\(:icon(\\s+.*?)?:\\)/ei',
+       '/\\(:icon(\\s+.*?)?:\\)/i',
        "BootstrapIcon(PSS('$1 '))");
 
 function BootstrapIcon($args) {
@@ -92,7 +92,7 @@ if (! isset($BodySpan)) {
 }
 
 Markup('noleft', 'directives',
-       '/\\(:noleft:\\)/ei',
+       '/\\(:noleft:\\)/i',
        "HideLeftBoot()");
 
 # SetTmplDisplay() is a core pmwiki function defined in pmwiki.php
@@ -115,18 +115,18 @@ if (! isset($BootBodyClass)) {
 }
 
 Markup('bootstrap-center-main', 'directives',
-       '/\\(:bootstrap-center-main:\\)/ei',
-       "BootstrapCenterMain()");   
+       '/\\(:bootstrap-center-main:\\)/i',
+       "BootstrapCenterMain()");
 
 function BootstrapCenterMain() {
 
 	global $BodySpan, $BootBodyClass;
 	$BodySpan = "";
 	$BootBodyClass = "container";
-	
+
 	SetTmplDisplay('PageLeftFmt', 0);
 
-}	   
+}
 
 
 /* Dropdowns
@@ -141,7 +141,7 @@ function BootstrapCenterMain() {
    TODO this markup has been superceeded by "(:bdropdown :)" markup in dropdown.php file
         being left in temporarily as updates are progressing
 */
-Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/e",
+Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/",
        "GroupDropdownMenu('$1')");
 
 function GroupDropdownMenu($inp) {
@@ -255,7 +255,7 @@ SDVA($BootButtons, array(
 #sms('after the echo');
 
 Markup('e_bootbuttons', 'directives',
-  '/\\(:e_bootbuttons:\\)/e',
+  '/\\(:e_bootbuttons:\\)/',
   "Keep(FmtPageName(BootButtonCode(\$pagename), \$pagename))");
 
 function BootButtonCode($pagename) {
