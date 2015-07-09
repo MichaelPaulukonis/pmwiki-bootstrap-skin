@@ -26,8 +26,8 @@
 
    Inspired by code from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
 */
-Markup("bdropdown",">links","/\\(:bdropdown\s*(.*?)\s*:\\)/",
-       "BDropdownMenu('$1')");
+Markup_e("bdropdown",">links","/\\(:bdropdown\s*(.*?)\s*:\\)/",
+       "BDropdownMenu(\$m[1])");
 
 /* NOTE: the "B" prefix is temporary, as previous markup uses the same names (without "B" prefix)
          Once that code is removed, this should be updated to remove the "B"
