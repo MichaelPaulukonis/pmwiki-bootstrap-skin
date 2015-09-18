@@ -1,6 +1,7 @@
 node_modules
 config.js
 *.zip
+*.bak
 *RecentChanges
 css/amelia.css
 css/bootstrap-responsive.min.css

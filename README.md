@@ -7,6 +7,9 @@ Follow development at the [Trello board](https://trello.com/board/pmwiki-bootstr
 
 Notes also at [PmWiki Skins](http://www.pmwiki.org/wiki/Skins/TwitterBootstrap)
 
+Can be seen live  http://michaelpaulukonis.com/wikimain/Bootstrap (URL subject to change)
+
+
 # Installation
 Copy just about everything (excluding: `jakefile.js`, `readme.md`, `package.json`, `.gitignore`) to `/path/to/pwmiki/pub/skins/bootstrap-fluid`
 

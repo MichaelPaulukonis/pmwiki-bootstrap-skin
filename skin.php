@@ -10,9 +10,10 @@
 
 global $RecipeInfo, $SkinName, $SkinRecipeName, $WikiStyleApply, $PageLogoUrl,
     $HTMLHeaderFmt, $PageHeaderFmt, $PageNavStyle, $UseDarkstrapTheme, $UseFlatUI,
-    $PageEditForm, $PageTextStartFmt, $BodySpan;
+    $PageEditForm, $PageTextStartFmt, $BodySpan, $BootBodyClass;
 # Some Skin-specific values
-$RecipeInfo['BootstrapSkin']['Version'] = '2013-05-20';
+## TODO auto-populate from jake task (since version is tracked there)
+$RecipeInfo['BootstrapSkin']['Version'] = '0.2.4';
 $SkinName = 'bootstrap-fluid';
 $SkinRecipeName = "BootstrapSkin";
 
@@ -46,7 +47,7 @@ $WikiStyleApply['link'] = 'a';  #allows A to be labelled with class attributes
 # Markup() is a core pmwiki function defined in pmwiki.php
 # Keep() is a core pmwiki function defined in pmwiki.php
 Markup('button', 'links',
-           '/\\(:button(\\s+.*?)?:\\)/ei',
+           '/\\(:button(\\s+.*?)?:\\)/i',
            "Keep(BootstrapButton(PSS('$1 ')), 'L')");
 
 # ParseArgs() is a core pmwiki function defined in pmwiki.php
@@ -74,7 +75,7 @@ function BootstrapButton($args) {
 }
 
 Markup('icon', 'inline',
-       '/\\(:icon(\\s+.*?)?:\\)/ei',
+       '/\\(:icon(\\s+.*?)?:\\)/i',
        "BootstrapIcon(PSS('$1 '))");
 
 function BootstrapIcon($args) {
@@ -91,7 +92,7 @@ if (! isset($BodySpan)) {
 }
 
 Markup('noleft', 'directives',
-       '/\\(:noleft:\\)/ei',
+       '/\\(:noleft:\\)/i',
        "HideLeftBoot()");
 
 # SetTmplDisplay() is a core pmwiki function defined in pmwiki.php
@@ -105,6 +106,29 @@ function HideLeftBoot() {
 }
 
 
+
+# if (:boostrap-center-main:) markup is present, mainbody will be no class
+# and BootBodyClass will be container, instead of row-fluid
+# otherwise, span9/12 is required for content to appear to the right of the left-bar.
+if (! isset($BootBodyClass)) {
+   $BootBodyClass = "row-fluid";
+}
+
+Markup('bootstrap-center-main', 'directives',
+       '/\\(:bootstrap-center-main:\\)/i',
+       "BootstrapCenterMain()");
+
+function BootstrapCenterMain() {
+
+	global $BodySpan, $BootBodyClass;
+	$BodySpan = "";
+	$BootBodyClass = "container";
+
+	SetTmplDisplay('PageLeftFmt', 0);
+
+}
+
+
 /* Dropdowns
    Used in menu sections (navbar, etc). To use, insert:
 
@@ -113,8 +137,11 @@ function HideLeftBoot() {
    where title is the setting for the dropdown group.
 
    ganked from https://github.com/tamouse/pmwiki-bootstrap-skin/blob/dropdowns/bootstrap.php
+
+   TODO this markup has been superceeded by "(:bdropdown :)" markup in dropdown.php file
+        being left in temporarily as updates are progressing
 */
-Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/e",
+Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/",
        "GroupDropdownMenu('$1')");
 
 function GroupDropdownMenu($inp) {
@@ -196,8 +223,74 @@ function BuildGroupList($list) {
 }
 
 
-# I'm feeling a bit foolish, as I don't remember what this code is for.
-Markup("bgroupbegin",">links","/\\(:bgroupbegin (\\w+):\\)/e",
-       "Keep('<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">$1<b class=\"caret\"></b></a><ul class=\"dropdown-menu\">')");
-Markup("bgroupend",">links","/\\(:bgroupend:\\)/",
-       Keep('</ul></li>'));
+include_once("$SkinDir/dropdown.php");
+
+global $BootButtons;
+
+SDVA($BootButtons, array(
+  'em'       => array(100, "''", "''", '$[Emphasized]',
+                  'icon-italic',
+                  '$[ak_em]'),
+  'strong'   => array(110, "'''", "'''", '$[Strong]',
+                  'icon-bold',
+                  '$[ak_strong]'),
+  /* 'pagelink' => array(200, '[[', ']]', '$[Page link]', */
+  /*                 '$GUIButtonDirUrlFmt/pagelink.gif"$[Link to internal page]"'), */
+  /* 'extlink'  => array(210, '[[', ']]', 'http:// | $[link text]', */
+  /*                 '$GUIButtonDirUrlFmt/extlink.gif"$[Link to external page]"'), */
+  'big'      => array(300, "'+", "+'", '$[Big text]',
+                  'icon-fullscreen'),
+  /* 'small'    => array(310, "'-", "-'", '$[Small text]', */
+  /*                 '$GUIButtonDirUrlFmt/small.gif"$[Small text]"'), */
+  'sup'      => array(320, "'^", "^'", '$[Superscript]',
+                  'icon-arrow-up'),
+  'sub'      => array(330, "'_", "_'", '$[Subscript]',
+                  'icon-arrow-down'),
+  /* 'h2'       => array(400, '\\n!! ', '\\n', '$[Heading]', */
+  /*                 '$GUIButtonDirUrlFmt/h.gif"$[Heading]"'), */
+  'center'   => array(410, '%center%', '', '',
+                  'icon-align-center')));
+
+/* sms($BootButtons); */
+#sms('after the echo');
+
+Markup('e_bootbuttons', 'directives',
+  '/\\(:e_bootbuttons:\\)/',
+  "Keep(FmtPageName(BootButtonCode(\$pagename), \$pagename))");
+
+function BootButtonCode($pagename) {
+  global $BootButtons;
+  $cmpfn = create_function('$a,$b', 'return $a[0]-$b[0];');
+  /* sms('inside of BootButtonCode'); */
+  /* sms('Buttons: '.$BootButtons); */
+  usort($BootButtons, $cmpfn);
+  $out = "<script type='text/javascript'><!--\n";
+  foreach ($BootButtons as $k => $g) {
+    if (!$g) continue;
+    @list($when, $mopen, $mclose, $mtext, $class, $mkey) = $g;
+    // I will confess to not completely understanding what was happening, here
+    // I replaced "$tag" in the above line with "$class"
+    // which better replaced what I'm doing....
+    /* if ($tag{0} == '<') { */
+    /*     $out .= "document.write(\"$tag\");\n"; */
+    /*     continue; */
+    /* } */
+    /* if (preg_match('/^(.*\\.(gif|jpg|png))("([^"]+)")?$/', $tag, $m)) { */
+    /*   $title = (@$m[4] > '') ? "title='{$m[4]}'" : ''; */
+    /*   /\* $tag = "<img src='{$m[1]}' $title style='border:0px;' />"; *\/ */
+    /*   $tag = "<i class='{$m[1]}'></i>"; */
+    /* } */
+    /* NOTE: label-inverse looks good for dark themes (like Darkstrap)
+       but doesn't work for light themes (like default bootstrap).
+       solution not known, so not using label-inverse for now.
+     */
+    $tag = "<span class='label guibutton'><i class='$class'></i></span>";
+    $mopen = str_replace(array('\\', "'"), array('\\\\', "\\\\'"), $mopen);
+    $mclose = str_replace(array('\\', "'"), array('\\\\', "\\\\'"), $mclose);
+    $mtext = str_replace(array('\\', "'"), array('\\\\', "\\\\'"), $mtext);
+    $out .=
+      "insButton(\"$mopen\", \"$mclose\", '$mtext', \"$tag\", \"$mkey\");\n";
+  }
+  $out .= '//--></script>';
+  return $out;
+}

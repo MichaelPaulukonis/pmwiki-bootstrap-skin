@@ -8,7 +8,6 @@
   */
 
 var open = require('open'),
-    config = require('./config'),
     pkgjson = require('./package.json'),
     releaseTools = require('releasetools');
 
@@ -17,12 +16,14 @@ var open = require('open'),
 
 desc('dump');
 task('dump', [], function() {
+    var config = require('./config');
     console.log(config);
 });
 
 desc('Push the project (no ignore) to the config location passed in..');
 task('push', [], function (location) {
 
+	var config = require('./config');
     if (! config.target.hasOwnProperty(location)) {
         console.error(location + ' is not a valid location. Try one of the following:');
         console.log(config.target);
@@ -41,7 +42,7 @@ var push = function(target) {
     var copy = function(file) {
         var dest = path.join(target, path.dirname(file));
         jake.mkdirP(dest);
-        jake.cpR(file, dest); // although this is reccursive, if the directory doesn't exist... creates a file of the same name. hunh.
+        jake.cpR(file, dest); // although this is recursive, if the directory doesn't exist... creates a file of the same name. hunh.
     };
 
     getProjectFiles().toArray().map(copy);
@@ -51,6 +52,7 @@ var push = function(target) {
 
 desc('Open remote repo in browser');
 task('openweb', [], function() {
+	var config = require('./config');
     open(config.remote);
 });
 
@@ -139,6 +141,8 @@ var tempname = function() {
     return "build"; // that will do for now....
 };
 
+// NOTE: fails if you have uncommitted changes. SO DO THIS FIRST. 
+// WTF?!??!
 desc('Bump version in package.json');
 task('bump', function(releaseType) {
     releaseType = releaseType || 'patch';
