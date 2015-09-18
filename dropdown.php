@@ -37,13 +37,16 @@ function BDropdownMenu($inp) {
     $defaults = array('title'=>'Dropdown');
     $args = array_merge($defaults, ParseArgs($inp));
 
-    $inline_code_begin = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".$args['title']."<b class='caret'></b></a><ul class='dropdown-menu'>";
-    $inline_code_end = "</ul></li>";
+    // $inline_code_begin = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".$args['title']."<b class='caret'></b></a><ul class='dropdown-menu'>";
+    $inline_code_begin = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>".$args['title'];
+    $inline_code_begin .= "<b class='caret'></b></a><ul class='dropdown-menu'>";
+
 
     // if we're using MakePageList, we have to pass ALL the opts along...
     // in this case, named $args
     $group_list = BGetWikiPages($args);
     $formatted_list = BBuildGroupList($group_list);
+    $inline_code_end = "</ul></li>";
 
     return Keep($inline_code_begin.$formatted_list.$inline_code_end);
 
@@ -76,14 +79,13 @@ function BGetWikiPages($args) {
  */
 function BBuildGroupList($list) {
     $out = '';
-
     $group = '';
+    $multipleGroups = CheckForMultipleGroups($list);
     foreach($list as $page) {
         # if group name is empty or != previous group name, capture it and start new unordered list
-        # TODO: if only one group is present (or some param indicated to do so)
-        # menu will be flat
+        # if only one group is present (or some param indicated to do so) menu will be flat
         preg_match('/\((.*?).\)/', $page, $matches);
-        if ($group == '' || $group != $matches[1]) {
+        if ($multipleGroups == True && ($group == '' || $group != $matches[1])) {
 
             # only close if a group has been set
             if ($group != '') {
@@ -92,16 +94,46 @@ function BBuildGroupList($list) {
 
             $group = $matches[1];
 
+            # open a sub-menu for the new group
             $out .= "<li class='nav nav-list'>$group<b class='caret'></b>";
             $out .= "<ul class='dropdown-menu'>";
         }
 
+        $cleanPage = preg_replace('/[()]/', '', $page);
+        $title = FmtPageName('$Title', $cleanPage);
+
         $out .= '<li>';
-        $out .= MakeLink($pagename, $page);
+        $out .= MakeLink($page, $page, $title);
         $out .= '</li>';
+
     }
 
-    $out .= "</ul></li>";
+    if ($multipleGroups == True) {
+        $out .= "</ul></li>";
+    }
 
     return $out;
+}
+
+/*
+ see if only one group is present, so we can use as a toggle in BuildGroupList
+ there's probably a much smarter way of doing all this
+ */
+function CheckForMultipleGroups($list) {
+    $multipleFound = False;
+    $group = '';
+    foreach($list as $page) {
+        preg_match('/\((.*?).\)/', $page, $matches);
+        if ($group != $matches[1]) {
+
+            # only flip if this is the SECOND group we've found
+            if ($group != '') {
+                $multipleFound = True;
+                break;
+            }
+            $group = $matches[1];
+        }
+    }
+
+    return $multipleFound;
 }
