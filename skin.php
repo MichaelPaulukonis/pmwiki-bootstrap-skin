@@ -46,9 +46,10 @@ $WikiStyleApply['link'] = 'a';  #allows A to be labelled with class attributes
 
 # Markup() is a core pmwiki function defined in pmwiki.php
 # Keep() is a core pmwiki function defined in pmwiki.php
-Markup('button', 'links',
+Markup_e('button', 'links',
            '/\\(:button(\\s+.*?)?:\\)/i',
-           "Keep(BootstrapButton(PSS('$1 ')), 'L')");
+           "Keep(BootstrapButton(\$m[1]), 'L')");
+
 
 # ParseArgs() is a core pmwiki function defined in pmwiki.php
 function BootstrapButton($args) {
