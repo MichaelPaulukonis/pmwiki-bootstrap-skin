@@ -13,7 +13,7 @@ global $RecipeInfo, $SkinName, $SkinRecipeName, $WikiStyleApply, $PageLogoUrl,
     $PageEditForm, $PageTextStartFmt, $BodySpan, $BootBodyClass;
 # Some Skin-specific values
 ## TODO auto-populate from jake task (since version is tracked there)
-$RecipeInfo['BootstrapSkin']['Version'] = '0.2.4';
+$RecipeInfo['BootstrapSkin']['Version'] = '0.2.5';
 $SkinName = 'bootstrap-fluid';
 $SkinRecipeName = "BootstrapSkin";
 
@@ -75,9 +75,9 @@ function BootstrapButton($args) {
 
 }
 
-Markup('icon', 'inline',
+Markup_e('icon', 'inline',
        '/\\(:icon(\\s+.*?)?:\\)/i',
-       "BootstrapIcon(PSS('$1 '))");
+       "BootstrapIcon(\$m[1])");
 
 function BootstrapIcon($args) {
 

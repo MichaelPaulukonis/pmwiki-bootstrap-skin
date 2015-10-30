@@ -66,14 +66,15 @@ task('zip', [], function() {
     var version = pkgjson.version;
 
     var AdmZip = require('adm-zip'),
-        path = require('path');
-    var zip = new AdmZip();
+        path = require('path'),
+        zip = new AdmZip();
 
 
     var addFile = function(file) {
 
         var dir = path.dirname(file);
         if (dir === '.') { dir = ''; } // addLocalFile doesn't resolve '.'
+        dir = 'bootstrap-fluid/' + dir;
 
         console.log('addLocalFile(' + file + ', ' + dir + ');');
 
@@ -83,21 +84,10 @@ task('zip', [], function() {
 
     getProjectFiles().toArray().map(addFile);
 
-    zip.writeZip(name + '.' + version + '.zip');
-
-
-    // isn't working. not sure what I'm doing wrong
-    // var t = new jake.PackageTask(name, version, function() {
-
-    //     // this.packageFiles.items = getProjectFiles();
-    //     var files = [ 'd:/temp/WebText/001.html', 'd:/temp/WebText/002.html'];
-    //     this.packageFiles.items = files;
-
-    //     console.log(this.packageFiles.items);
-
-    //     this.needZip = true;
-
-    // });
+    var zipFile = `${name}.${version}.zip`;
+    // zip.writeZip(name + '.' + version + '.zip');
+    zip.writeZip(zipFile);
+    console.log('zipped @: %s', zipFile);
 
 });
 
@@ -141,7 +131,7 @@ var tempname = function() {
     return "build"; // that will do for now....
 };
 
-// NOTE: fails if you have uncommitted changes. SO DO THIS FIRST. 
+// NOTE: fails if you have uncommitted changes. SO DO THIS FIRST.
 // WTF?!??!
 desc('Bump version in package.json');
 task('bump', function(releaseType) {
