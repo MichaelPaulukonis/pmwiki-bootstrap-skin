@@ -9,6 +9,11 @@ Notes also at [PmWiki Skins](http://www.pmwiki.org/wiki/Skins/TwitterBootstrap)
 
 Can be seen live  http://michaelpaulukonis.com/wikimain/Bootstrap (URL subject to change)
 
+# Bootstrap v3 branch
+ - http://getbootstrap.com/getting-started/#download
+ - [Migration from 2.x to 3.0](http://bootstrapdocs.com/v3.0.0/docs/getting-started/#migration)
+
+
 
 # Installation
 Copy just about everything (excluding: `jakefile.js`, `readme.md`, `package.json`, `.gitignore`) to `/path/to/pwmiki/pub/skins/bootstrap-fluid`
@@ -27,7 +32,7 @@ Use the query-params `navbar` and `setnavbar` to temporarily or permanently chan
 All of the above values can be set for all users in `config.php` with the following values: `$BootstrapTheme`, `$BootstrapCore`, `$BootstrapNav`.
 
 # Markup
-See the included pages `Bootstrap.Boostrap`, `Bootstrap.Markup` and `Bootstrap.Sandbox` pages for markup examples. 
+See the included pages `Bootstrap.Boostrap`, `Bootstrap.Markup` and `Bootstrap.Sandbox` pages for markup examples.
 
 # Screenshots
 
