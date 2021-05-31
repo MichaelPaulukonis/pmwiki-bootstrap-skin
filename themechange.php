@@ -40,7 +40,7 @@ if (isset($_GET['clearbootcookies'])) {
     $ignorecookies = true;
 }
 
-if (!$ignorecookies && isset($_COOKIE[$BootstrapThemeCookie])) {
+if (!@$ignorecookies && isset($_COOKIE[$BootstrapThemeCookie])) {
         $theme = $_COOKIE[$BootstrapThemeCookie];
 }
 if (isset($_GET['settheme'])) {
@@ -55,7 +55,7 @@ if (! isset($theme)) {
 }
 
 
-if (!$ignorecookies && isset($_COOKIE[$BootstrapCoreCookie])) {
+if (!@$ignorecookies && isset($_COOKIE[$BootstrapCoreCookie])) {
         $core = $_COOKIE[$BootstrapCoreCookie];
 }
 if (isset($_GET['setcore'])) {
@@ -71,7 +71,7 @@ if (! isset($core)) {
 
 # presence of navbar cookie will over-ride any defaults that may be set per theme
 # ie, darkstrap and default bootstrap use inverse. because I think it looks better
-if (!$ignorecookies && isset($_COOKIE[$BootstrapNavbarCookie])) {
+if (!@$ignorecookies && isset($_COOKIE[$BootstrapNavbarCookie])) {
         $navbar = $_COOKIE[$BootstrapNavbarCookie];
 }
 if (isset($_GET['setnavbar'])) {
@@ -83,7 +83,7 @@ if (isset($_GET['navbar'])) {
         $navbar = ($navbar == 'inverse' ? 'navbar-inverse' : '');
 }
 if (! isset($navbar)) {
-        $navbar = $BootstrapNavbar;
+        $navbar = @$BootstrapNavbar;
         $navbar = ($navbar == 'inverse' ? 'navbar-inverse' : '');
 }
 
