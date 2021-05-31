@@ -46,10 +46,13 @@ $WikiStyleApply['link'] = 'a';  #allows A to be labelled with class attributes
 
 # Markup() is a core pmwiki function defined in pmwiki.php
 # Keep() is a core pmwiki function defined in pmwiki.php
-Markup_e('button', 'links',
+Markup('button', 'links',
            '/\\(:button(\\s+.*?)?:\\)/i',
-           "Keep(BootstrapButton(\$m[1]), 'L')");
+           "mu_BootstrapButton");
 
+function mu_BootstrapButton($m){
+  return Keep(BootstrapButton($m[1]), 'L');
+}
 
 # ParseArgs() is a core pmwiki function defined in pmwiki.php
 function BootstrapButton($args) {
@@ -75,12 +78,12 @@ function BootstrapButton($args) {
 
 }
 
-Markup_e('icon', 'inline',
+Markup('icon', 'inline',
        '/\\(:icon(\\s+.*?)?:\\)/i',
-       "BootstrapIcon(\$m[1])");
+       "BootstrapIcon");
 
-function BootstrapIcon($args) {
-
+function BootstrapIcon() {
+       $args = $m[1];
        $icon = sprintf('<i class=%s ></i>', $args);
 
        return Keep($icon);
@@ -94,7 +97,7 @@ if (! isset($BodySpan)) {
 
 Markup('noleft', 'directives',
        '/\\(:noleft:\\)/i',
-       "HideLeftBoot()");
+       "HideLeftBoot");
 
 # SetTmplDisplay() is a core pmwiki function defined in pmwiki.php
 function HideLeftBoot() {
@@ -117,7 +120,7 @@ if (! isset($BootBodyClass)) {
 
 Markup('bootstrap-center-main', 'directives',
        '/\\(:bootstrap-center-main:\\)/i',
-       "BootstrapCenterMain()");
+       "BootstrapCenterMain");
 
 function BootstrapCenterMain() {
 
@@ -143,10 +146,10 @@ function BootstrapCenterMain() {
         being left in temporarily as updates are progressing
 */
 Markup("bgroups",">links","/\\(:bgroupdropdown\s*(.*?)\s*:\\)/",
-       "GroupDropdownMenu('$1')");
+       "GroupDropdownMenu");
 
-function GroupDropdownMenu($inp) {
-
+function GroupDropdownMenu() {
+    $inp = $m[1];
     $defaults = array('title'=>'Dropdown');
 
     $args = array_merge($defaults, ParseArgs($inp));
@@ -257,14 +260,18 @@ SDVA($BootButtons, array(
 
 Markup('e_bootbuttons', 'directives',
   '/\\(:e_bootbuttons:\\)/',
-  "Keep(FmtPageName(BootButtonCode(\$pagename), \$pagename))");
+  "mu_BootButtonCode");
 
+function mu_BootButtonCode() {
+  extract($GLOBALS['MarkupToHTML']);
+  return Keep(FmtPageName(BootButtonCode($pagename), $pagename));
+}
+function bootcmp($a, $b) { return $a[0]-$b[0]; }
 function BootButtonCode($pagename) {
   global $BootButtons;
-  $cmpfn = create_function('$a,$b', 'return $a[0]-$b[0];');
   /* sms('inside of BootButtonCode'); */
   /* sms('Buttons: '.$BootButtons); */
-  usort($BootButtons, $cmpfn);
+  usort($BootButtons, 'bootcmp');
   $out = "<script type='text/javascript'><!--\n";
   foreach ($BootButtons as $k => $g) {
     if (!$g) continue;
